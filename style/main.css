@@ -9,6 +9,18 @@ body {
   margin-right: 2em;
 }
 
+.header {
+  margin: 0px 0px 0px 0px;
+  position: relative;
+  background: #333;
+  padding: 10px;
+}
+
+.stats {
+  position: static;
+  margin-top: 10em;
+}
+
 .stack {
   text-align: center;
 }
@@ -18,7 +30,7 @@ body {
 }
 
 .task table {
-  background: #555;
+  background: #444;
   margin: 1em;
   align: center;
   padding: 1em;

@@ -10,14 +10,15 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
   if(temp) { // load saved taskStore if it exists
     var arr = JSON.parse(temp);
     arr.forEach(function(x) {
-      $scope.taskStore.push(new Task(x));
+      var temp = new Task(x);
+      if(temp.error !== true) $scope.taskStore.push(temp);
     });
   };
   console.log($scope.taskStore);
 
   $scope.newTask = function(name) {
     var temp = new Task(name);
-    if(temp) this.taskStore.push(temp); // don't push if Task() returns null
+    if(temp.error !== true) this.taskStore.push(temp); // don't push if Task() returns error object
   };
 
   $scope.updateStorage = function() {
@@ -35,7 +36,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       this.isPaused = false; // begin task unpaused, this bool used for ngSwitch
     }
     else if (typeof arg === 'object') { // recreating saved task from local storage
-      if(arg.cumulativeTime === 0) return null;
+      if(arg.cumulativeTime === 0) return {error : true};
       this.name = arg.name;
       this.cumulativeTime = arg.cumulativeTime;
       this.date = arg.date;
@@ -53,17 +54,17 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     if (!this.isPaused) this.timeoutHandler = $timeout(increment, 1000, true, this); // 3rd arg is def, 4th is arg to pass to increment
 
     this.setLapsedTime = function() {
-      var lapsedTime = Math.floor((this.cumulativeTime + new Date().getTime() - this.initTime.getTime())/1000);
+      var x = Math.floor((this.cumulativeTime + new Date().getTime() - this.initTime.getTime())/1000);
 
-      var seconds = lapsedTime % 60;
+      var seconds = x % 60;
       if(seconds < 10) seconds = '0' + seconds;
-      lapsedTime = (lapsedTime - seconds)/60;
+      x = (x - seconds)/60;
 
-      var minutes = lapsedTime % 60;
+      var minutes = x % 60;
       if (minutes < 10) minutes = '0' + minutes;
-      lapsedTime = (lapsedTime - minutes)/60;
+      x = (x - minutes)/60;
 
-      var hours = lapsedTime % 24;
+      var hours = x % 24;
       if(hours < 10) hours = '0' + hours;
 
       this.lapsedTimeString = hours + ':' + minutes + ':' + seconds;
