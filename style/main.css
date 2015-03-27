@@ -1,5 +1,7 @@
 body {
   font-family: sans-serif;
+  background: #111;
+  color: #ddd;
 }
 
 .container {
@@ -15,10 +17,12 @@ body {
   font-family: monospace;
 }
 
-table.task {
-  background: #eee;
+.task table {
+  background: #555;
   margin: 1em;
   align: center;
+  padding: 1em;
+  border-radius: 0.5em;
 }
 
 table {
