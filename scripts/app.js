@@ -1,7 +1,7 @@
 var app = angular.module('scheduler',[]); // requires angularJS version >= 1.4
 
 app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
-  $scope.version = '0.4.0';
+  $scope.version = '0.4.1';
   $scope.nameBool = false; // name is clicked?
 
   // check for local storage
@@ -16,7 +16,8 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
   console.log($scope.taskStore);
 
   $scope.newTask = function(name) {
-    this.taskStore.push(new Task(name));
+    var temp = new Task(name);
+    if(temp) this.taskStore.push(new Task(name)); // don't push if Task() returns null
   };
 
   $scope.updateStorage = function() {
@@ -34,6 +35,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       this.isPaused = false; // begin task unpaused, this bool used for ngSwitch
     }
     else if (typeof arg == 'object') { // recreating saved task from local storage
+      if(arg.cumulativeTime == 0) return null;
       this.name = arg.name;
       this.cumulativeTime = arg.cumulativeTime;
       this.date = arg.date;

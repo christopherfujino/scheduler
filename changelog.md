@@ -1,7 +1,11 @@
 # Scheduler <small>Changelog</small>
 
+version 0.4.1
+* caveat: if a task has never been stopped, it will be discarded
+
 version 0.4
 * copy taskStore to local storage
+* app will auto-save the entire task store to local storage on any stop or delete operation
 
 version 0.3
 * add ability to pause and resume task
