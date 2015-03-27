@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Scheduler</title>
+    <link href='style/main.css' rel='stylesheet'>
+  </head>
+
+  <body ng-app='scheduler' ng-controller='main'>
+    <div class='container'>
+      <div class='stack header'><h1>Scheduler <small>{{ version }}</small></h1></div>
+
+      <div class='stack interface'>
+        <div>
+          <form>
+            <input type='text' data-ng-model='taskName'>
+            <button class='btn' type='submit' ng-click='newTask(taskName)' class='new-task'>
+              New task
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class='stack stats'>
+        <div class='table-wrapper' data-ng-repeat='i in taskStore'>
+          <table class='task' >
+            <tr>
+              <td class=''>Task name</td>
+              <td class='' data-ng-switch='i.nameBool'>
+                <div data-ng-switch-when='false' data-ng-click='i.toggleName();'>{{ i.name }}</div>
+                <form data-ng-switch-when='true' data-ng-submit='i.toggleName();'><input type='text' data-ng-blur='i.toggleName();' data-ng-model='i.name'></form>
+              </td>
+            </tr>
+            <tr>
+              <td class=''>Date</td>
+              <td class=''>{{ i.date }}</td>
+            </tr>
+            <tr>
+              <td class=''>Time elapsed</td>
+              <td class='monospaced'>{{ i.lapsedTimeString }}</td>
+            </tr>
+            <tr>
+              <td colspan=2>
+                <button class='btn' type='button' class='delete' data-ng-click='i.remove($index)'>Delete</button>
+                <span ng-switch='i.isPaused'>
+                  <button class='btn' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'>Resume</button>
+                  <button class='btn' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'>Stop</button>
+                </span>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- scripts -->
+    <script src='scripts/angular-1.4.0-beta.6/angular.min.js'></script>
+    <script src='scripts/app.js'></script>
+
+  </body>
+
+</html>
