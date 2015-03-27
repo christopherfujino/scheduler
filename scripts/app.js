@@ -17,7 +17,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
 
   $scope.newTask = function(name) {
     var temp = new Task(name);
-    if(temp) this.taskStore.push(new Task(name)); // don't push if Task() returns null
+    if(temp) this.taskStore.push(temp); // don't push if Task() returns null
   };
 
   $scope.updateStorage = function() {
