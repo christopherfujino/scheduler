@@ -1,5 +1,8 @@
 # Scheduler <small>Changelog</small>
 
+version 0.4
+* copy taskStore to local storage
+
 version 0.3
 * add ability to pause and resume task
 * add ability to edit task name
