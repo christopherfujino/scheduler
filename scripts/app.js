@@ -3,7 +3,7 @@ var app = angular.module('scheduler',[]); // requires angularJS version >= 1.4
 app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
   $scope.version = '0.3.0';
   $scope.nameBool = false; // name is clicked?
-  $scope.taskStore = new Array();
+  $scope.taskStore = [];
   $scope.newTask = function(name) {
     this.taskStore.push(new Task(name));
   };
