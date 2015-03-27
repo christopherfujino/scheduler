@@ -27,15 +27,15 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
 
   function Task(arg) {
     this.initTime = this.endTime = new Date(); // initialize both times to now
-    if(typeof arg == 'string') { // create new task with arg being name
+    if(typeof arg === 'string') { // create new task with arg being name
       this.name = arg; // arg coming from text input box
       this.cumulativeTime = 0; // time lapsed prior to a pause, integer
       this.date = this.initTime.toDateString();
       this.lapsedTimeString = '';
       this.isPaused = false; // begin task unpaused, this bool used for ngSwitch
     }
-    else if (typeof arg == 'object') { // recreating saved task from local storage
-      if(arg.cumulativeTime == 0) return null;
+    else if (typeof arg === 'object') { // recreating saved task from local storage
+      if(arg.cumulativeTime === 0) return null;
       this.name = arg.name;
       this.cumulativeTime = arg.cumulativeTime;
       this.date = arg.date;
