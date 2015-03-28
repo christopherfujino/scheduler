@@ -10,15 +10,15 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
   if(temp) { // load saved taskStore if it exists
     var arr = JSON.parse(temp);
     arr.forEach(function(x) {
-      var temp = new Task(x);
-      if(temp.error !== true) $scope.taskStore.push(temp);
+      var temp = new Task(x); // temp created to check if Task() returns error object
+      if(temp.error !== true) $scope.taskStore.push(temp); // don't push if Task() returns error object
     });
   };
   console.log($scope.taskStore);
 
   $scope.newTask = function(name) {
     var temp = new Task(name);
-    if(temp.error !== true) this.taskStore.push(temp); // don't push if Task() returns error object
+    if(temp.error !== true) this.taskStore.push(temp);
   };
 
   $scope.updateStorage = function() {

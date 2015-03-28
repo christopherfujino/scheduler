@@ -1,5 +1,8 @@
 # Scheduler <small>Changelog</small>
 
+version 0.5
+* fix: discarding of saved tasks with cumulativeTime==0 didn't work because constructors must return objects, now fixed
+
 version 0.4.1
 * caveat: if a task has never been stopped, it will be discarded
 

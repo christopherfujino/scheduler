@@ -2,6 +2,7 @@ body {
   font-family: sans-serif;
   background: #111;
   color: #ddd;
+  margin: 0px;
 }
 
 .container {
@@ -11,7 +12,9 @@ body {
 
 .header {
   margin: 0px 0px 0px 0px;
-  position: relative;
+  display: block;
+  position: fixed;
+  top: 0px;
   background: #333;
   padding: 10px;
 }
