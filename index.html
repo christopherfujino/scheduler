@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Scheduler</title>
+    <link href='style/bootstrap.min.css' rel='stylesheet'>
     <link href='style/main.css' rel='stylesheet'>
   </head>
 
@@ -10,10 +11,10 @@
       <h1>Scheduler <small>{{ version }}</small></h1>
       <form>
         <input type='text' data-ng-model='taskName'>
-        <button class='btn' type='submit' ng-click='newTask(taskName)' class='new-task'>
+        <button class='btn btn-default' type='submit' ng-click='newTask(taskName)' class='new-task'>
           New task
         </button>
-      </form>  
+      </form>
     </div>
 
     <div class='container'>
@@ -37,10 +38,10 @@
             </tr>
             <tr>
               <td colspan=2>
-                <button class='btn' type='button' class='delete' data-ng-click='i.remove($index)'>Delete</button>
+                <button class='btn btn-default' type='button' class='delete' data-ng-click='i.remove($index)'>Delete</button>
                 <span ng-switch='i.isPaused'>
-                  <button class='btn' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'>Resume</button>
-                  <button class='btn' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'>Stop</button>
+                  <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'>Resume</button>
+                  <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'>Stop</button>
                 </span>
               </td>
             </tr>
