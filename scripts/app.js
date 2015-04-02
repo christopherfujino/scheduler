@@ -3,18 +3,43 @@
 var app = angular.module('scheduler',[]); // requires angularJS version >= 1.4
 
 app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
-  $scope.version = '0.6';
+  $scope.version = '0.7';
   $scope.nameBool = false; // name is clicked?
 
   // check for local storage
-  $scope.taskStore = [];
+  $scope.taskStore = {
+    version : $scope.version,
+    activeTasks : [],
+    toDoTasks : []
+  };
   var temp = localStorage.getItem('taskStore');
   if(temp) { // load saved taskStore if it exists
-    var arr = JSON.parse(temp);
-    arr.forEach(function(x) {
-      var temp = new Task(x); // temp created to check if Task() returns error object
-      if(temp.error !== true) $scope.taskStore.push(temp); // don't push if Task() returns error object
-    });
+    var obj = JSON.parse(temp);
+    if(obj.version === $scope.version) { // if saved data from same version, process
+      obj.activeTasks.forEach(function(x) {
+        var temp = new Task(x); // temp created to check if Task() returns error object
+        if(temp.error !== true) $scope.taskStore.activeTasks.push(temp); // don't push if Task() returns error object
+      });
+      obj.toDoTasks.forEach(function(x) {
+        var temp = new Task(x); // temp created to check if Task() returns error object
+        if(temp.error !== true) $scope.taskStore.toDoTasks.push(temp); // don't push if Task() returns error object
+      });
+    }
+    else if (!obj.version) { // from version < 0.7, where taskStore was a literal array of Tasks
+      obj.forEach(function(x) {
+        var temp = new Task(x); // temp created to check if Task() returns error object
+        if(temp.error !== true) $scope.taskStore.activeTasks.push(temp); // don't push if Task() returns error object
+      });
+
+      console.log($scope.taskStore);
+
+//      throw new Error("Migrating taskStore from version 0.6");
+    }
+    else {
+      console.log(obj);
+      alert('Version error!\nSaved data from version ' + obj.version);
+      throw new Error("Something went badly wrong!");
+    }
   };
   console.log($scope.taskStore);
 
@@ -26,7 +51,12 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
   $scope.newTask = function(name, startNow) {
     var temp = new Task(name, startNow);
     if(temp.error !== true) {
-      this.taskStore.push(temp);
+      if(startNow === true) {
+        this.taskStore.activeTasks.push(temp);
+      }
+      else {
+        this.taskStore.toDoTasks.push(temp);
+      }
       this.updateStorage();
     }
   };
@@ -93,8 +123,12 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
         this.initTime = undefined;
       }
     };
-    this.remove = function(index) {
-      $scope.taskStore.splice(index,1);
+    this.remove = function(type, index) {
+      if(type === 'active') $scope.taskStore.activeTasks.splice(index,1);
+      else if(type === 'toDo') $scope.taskStore.toDoTasks.splice(index,1);
+      else {
+        throw new Error('unknown type "' + type + '" in Task.remove()');
+      }
       $scope.updateStorage();
     };
     this.save = function() { //
