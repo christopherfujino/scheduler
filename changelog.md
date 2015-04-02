@@ -5,6 +5,8 @@
 
 ### finished:
 
+* change start/stop buttons to use icons
+
 version 0.8.2
 * added: font-awesome css, bootstrap & jquery js dependencies
 * changed: navbar UI streamlined

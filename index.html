@@ -73,9 +73,21 @@
                   </tr>
                   <tr>
                     <td colspan='2'>
+
+                      <div class="input-group">
+                        <input type="text" placeholder="Add New Tag..." class="form-control" data-ng-model='tagName'>
+                        <div class="input-group-btn">
+                          <button type='button' class='btn btn-default' data-ng-click=''><span class='fa fa-plus'></span></button>
+                        </div><!-- /btn-group -->
+                      </div><!-- /input-group -->
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan='2'>
                       <span ng-switch='i.isPaused'>
-                        <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'>Resume</button>
-                        <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'>Stop</button>
+                        <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'><span class='fa fa-play'></span></button>
+                        <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'><span class='fa fa-pause'></span></button>
                       </span>
                       <button class='btn btn-default' type='button' class='delete' data-ng-click='i.remove("active", $index)'><span class='fa fa-times'></span></button>
                     </td>
@@ -111,7 +123,7 @@
                   </tr>
                   <tr>
                     <td colspan=2>
-                      <button class='btn btn-default' type='button' data-ng-click='startToDoTask($index);'>Start</button>
+                      <button class='btn btn-default' type='button' data-ng-click='startToDoTask($index);'><span class='fa fa-play'></span></button>
                       <button class='btn btn-default' type='button' class='delete' data-ng-click='i.remove("toDo", $index)'>
                         <span class='fa fa-times'></span>
                       </button>
