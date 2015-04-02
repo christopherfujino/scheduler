@@ -5,6 +5,10 @@
 
 ### finished:
 
+version 0.8.2
+* added: font-awesome css, bootstrap & jquery js dependencies
+* changed: navbar UI streamlined
+
 version 0.8.1
 * fixed: app will load saved data from older versions > 0.6
 
