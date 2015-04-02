@@ -2,9 +2,12 @@
 
 ### todo:
 * add tag system
-* move tasks from 'to do' column to 'active' column when started
 
 ### finished:
+
+version 0.8
+* have new tasks placed at beginning of arrays
+* added: $scope.startToDoTask() to move tasks from taskStore.toDoTasks[] to taskStore.activeTasks[]
 
 version 0.7
 * add: bootstrap columns for active and 'to do' tasks

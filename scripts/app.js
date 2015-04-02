@@ -3,7 +3,7 @@
 var app = angular.module('scheduler',[]); // requires angularJS version >= 1.4
 
 app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
-  $scope.version = '0.7';
+  $scope.version = '0.8';
   $scope.nameBool = false; // name is clicked?
 
   // check for local storage
@@ -35,10 +35,12 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
 
 //      throw new Error("Migrating taskStore from version 0.6");
     }
-    else {
+    else { // saved taskStore from an earlier version
       console.log(obj);
-      alert('Version error!\nSaved data from version ' + obj.version);
-      throw new Error("Something went badly wrong!");
+      console.log('Warning! Saved data from an earlier version!');
+      console.log('Current app version is: ' + $scope.version);
+      console.log('Saved data version is: ' + obj.version);
+//      throw new Error("Something went badly wrong!");   // only throw error if saved data API broken
     }
   };
   console.log($scope.taskStore);
@@ -52,10 +54,10 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     var temp = new Task(name, startNow);
     if(temp.error !== true) {
       if(startNow === true) {
-        this.taskStore.activeTasks.push(temp);
+        this.taskStore.activeTasks.unshift(temp);
       }
       else {
-        this.taskStore.toDoTasks.push(temp);
+        this.taskStore.toDoTasks.push(temp); // keep oldest to-do's at top, so push
       }
       this.updateStorage();
     }
@@ -63,7 +65,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
 
   $scope.startToDoTask = function(index) {
     var activatedTask = $scope.taskStore.toDoTasks.splice(index, 1)[0];
-    $scope.taskStore.activeTasks.push(activatedTask);
+    $scope.taskStore.activeTasks.unshift(activatedTask);
     activatedTask.pause();
   };
 
