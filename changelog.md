@@ -3,11 +3,11 @@
 ### todo:
 * add tag system
 * separate view for 'to do' tasks
-* change: no longer discard saved tasks with cumulativeTime==0 as these might be 'To Do' tasks
 
 ### finished:
 
 * add: active tasks now auto-save every x (currently 20) seconds
+* change: no longer discard saved tasks with cumulativeTime==0 as these might be 'To Do' tasks
 
 version 0.5
 * change: there are now separate buttons: 1) 'Start New Task'; & 2) 'To Do Later'

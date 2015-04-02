@@ -18,14 +18,17 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
   };
   console.log($scope.taskStore);
 
-  $scope.newTask = function(name, startNow) {
-    var temp = new Task(name, startNow);
-    if(temp.error !== true) this.taskStore.push(temp);
-  };
-
   $scope.updateStorage = function() {
     console.log('local storage updated!');
     localStorage.setItem('taskStore', JSON.stringify($scope.taskStore));
+  };
+
+  $scope.newTask = function(name, startNow) {
+    var temp = new Task(name, startNow);
+    if(temp.error !== true) {
+      this.taskStore.push(temp);
+      this.updateStorage();
+    }
   };
 
   function Task(arg, startNow) { // 2nd arg is bool
@@ -42,7 +45,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       else { this.isPaused = true; }
     }
     else if (typeof arg === 'object') { // recreating saved task from local storage
-      if(arg.cumulativeTime === 0) return {error : true};
+//      if(arg.cumulativeTime === 0) return {error : true};
       this.name = arg.name;
       this.cumulativeTime = arg.cumulativeTime;
       this.date = arg.date;
@@ -90,14 +93,14 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
         this.initTime = undefined;
       }
     };
+    this.remove = function(index) {
+      $scope.taskStore.splice(index,1);
+      $scope.updateStorage();
+    };
     this.save = function() { //
       var now = new Date();
       this.cumulativeTime += now.getTime() - this.initTime.getTime();
       this.initTime = now;
-      $scope.updateStorage();
-    };
-    this.remove = function(index) {
-      $scope.taskStore.splice(index,1);
       $scope.updateStorage();
     };
   };
