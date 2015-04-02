@@ -33,7 +33,7 @@
             </div>
 
             <div class='panel-body'>
-              <div class='task' data-ng-repeat='i in taskStore'>
+              <div class='task' data-ng-repeat='i in taskStore.activeTasks'>
                 <table class='table table-striped'>
                   <tr>
                     <td class=''>Task name</td>
@@ -52,7 +52,7 @@
                   </tr>
                   <tr>
                     <td colspan='2'>
-                      <button class='btn btn-default' type='button' class='delete' data-ng-click='i.remove($index)'>Delete</button>
+                      <button class='btn btn-default' type='button' class='delete' data-ng-click='i.remove("active", $index)'>Delete</button>
                       <span ng-switch='i.isPaused'>
                         <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'>Resume</button>
                         <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'>Stop</button>
@@ -74,8 +74,8 @@
             </div>
 
             <div class='panel-body'>
-<!--
-              <div class='task' data-ng-repeat='i in taskStore.toDo'>
+
+              <div class='task' data-ng-repeat='i in taskStore.toDoTasks'>
                 <table class='table table-striped'>
                   <tr>
                     <td class=''>Task name</td>
@@ -94,7 +94,7 @@
                   </tr>
                   <tr>
                     <td colspan=2>
-                      <button class='btn btn-default' type='button' class='delete' data-ng-click='i.remove($index)'>Delete</button>
+                      <button class='btn btn-default' type='button' class='delete' data-ng-click='i.remove("toDo", $index)'>Delete</button>
                       <span ng-switch='i.isPaused'>
                         <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'>Resume</button>
                         <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'>Stop</button>
@@ -102,7 +102,7 @@
                     </td>
                   </tr>
                 </table>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
