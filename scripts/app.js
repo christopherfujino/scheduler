@@ -69,7 +69,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     activatedTask.pause();
   };
 
-  function Task(arg, startNow) { // 2nd arg is bool
+  function Task(arg, startNow) { // 1st arg is string for new obj, obj for loaded obj; 2nd arg is bool
     this.initTime = new Date();
     if(typeof arg === 'string') { // create new task with arg being name
       this.name = arg; // arg coming from text input box

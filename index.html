@@ -55,13 +55,14 @@
 
             <div class='panel-body'>
               <div class='task' data-ng-repeat='i in taskStore.activeTasks'>
-                <table class='table table-striped'>
+                <table class='table table-striped table-bordered'>
                   <tr>
-                    <td class=''>Task name</td>
-                    <td class='' data-ng-switch='i.nameBool'>
-                      <div data-ng-switch-when='false' data-ng-click='i.toggleName();'>{{ i.name }}</div>
+                    <th class='' colspan=2 data-ng-switch='i.nameBool'>
+                      <div data-ng-switch-when='false' data-ng-click='i.toggleName();' style='display: inline-block;'>{{ i.name }}</div>
+                      <a href='#'><span class='caret'></span></a>
+                      <button type='button' class='close' data-ng-click='i.remove("active", $index)'>&times;</button>
                       <form data-ng-switch-when='true' data-ng-submit='i.toggleName();'><input type='text' data-ng-blur='i.toggleName();' data-ng-model='i.name'></form>
-                    </td>
+                    </th>
                   </tr>
                   <tr>
                     <td class=''>Date</td>
@@ -89,7 +90,6 @@
                         <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'><span class='fa fa-play'></span></button>
                         <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'><span class='fa fa-pause'></span></button>
                       </span>
-                      <button class='btn btn-default' type='button' class='delete' data-ng-click='i.remove("active", $index)'><span class='fa fa-times'></span></button>
                     </td>
                   </tr>
                 </table>
@@ -109,14 +109,16 @@
             <div class='panel-body'>
 
               <div class='task' data-ng-repeat='i in taskStore.toDoTasks'>
-                <table class='table table-striped'>
+                <table class='table table-striped table-bordered'>
                   <tr>
-                    <td class=''>Task name</td>
-                    <td class='' data-ng-switch='i.nameBool'>
-                      <div data-ng-switch-when='false' data-ng-click='i.toggleName();'>{{ i.name }}</div>
+                    <th colspan=2 data-ng-switch='i.nameBool'>
+                      <div style='display: inline-block;' data-ng-switch-when='false' data-ng-click='i.toggleName();'>{{ i.name }}</div>
+                      <a href='#'><span class='caret'></span></a>
+                      <button type='button' class='close' data-ng-click='i.remove("toDo", $index)'>&times;</button>
                       <form data-ng-switch-when='true' data-ng-submit='i.toggleName();'><input type='text' data-ng-blur='i.toggleName();' data-ng-model='i.name'></form>
-                    </td>
+                    </th>
                   </tr>
+
                   <tr>
                     <td class=''>Date</td>
                     <td class=''>{{ i.date }}</td>
@@ -124,9 +126,6 @@
                   <tr>
                     <td colspan=2>
                       <button class='btn btn-default' type='button' data-ng-click='startToDoTask($index);'><span class='fa fa-play'></span></button>
-                      <button class='btn btn-default' type='button' class='delete' data-ng-click='i.remove("toDo", $index)'>
-                        <span class='fa fa-times'></span>
-                      </button>
                     </td>
                   </tr>
                 </table>
