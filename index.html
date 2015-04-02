@@ -8,7 +8,7 @@
   </head>
 
   <body ng-app='scheduler' ng-controller='main'>
-    <nav class="navbar navbar-default" id='my-navbar'>
+    <nav class="navbar navbar-default navbar-fixed-top" id='my-navbar'>
       <div class="container-fluid">
         <p class='navbar-text'>
           Scheduler {{ version }}
@@ -57,7 +57,7 @@
                         <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'>Resume</button>
                         <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'>Stop</button>
                       </span>
-                      <button class='btn btn-default' type='button' class='delete' data-ng-click='i.remove("active", $index)'>Delete</button>
+                      <button class='btn btn-default' type='button' class='delete' data-ng-click='i.remove("active", $index)'><span class='fa fa-times'></span></button>
                     </td>
                   </tr>
                 </table>
@@ -92,7 +92,9 @@
                   <tr>
                     <td colspan=2>
                       <button class='btn btn-default' type='button' data-ng-click='startToDoTask($index);'>Start</button>
-                      <button class='btn btn-default' type='button' class='delete' data-ng-click='i.remove("toDo", $index)'>Delete</button>
+                      <button class='btn btn-default' type='button' class='delete' data-ng-click='i.remove("toDo", $index)'>
+                        <span class='fa fa-times'></span>
+                      </button>
                     </td>
                   </tr>
                 </table>
@@ -102,7 +104,8 @@
         </div>
 
       </div>
-    </div>
+
+    </div> <!-- .container-fluid -->
 
     <!-- scripts -->
     <script src='scripts/angular.min.js'></script>
