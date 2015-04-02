@@ -96,7 +96,7 @@
                     <td colspan=2>
                       <button class='btn btn-default' type='button' class='delete' data-ng-click='i.remove("toDo", $index)'>Delete</button>
                       <span ng-switch='i.isPaused'>
-                        <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'>Resume</button>
+                        <button class='btn btn-default' type='button' data-ng-click='startToDoTask($index);' data-ng-switch-when='true'>Resume</button>
                         <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'>Stop</button>
                       </span>
                     </td>

@@ -61,6 +61,12 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     }
   };
 
+  $scope.startToDoTask = function(index) {
+    var activatedTask = $scope.taskStore.toDoTasks.splice(index, 1)[0];
+    $scope.taskStore.activeTasks.push(activatedTask);
+    activatedTask.pause();
+  };
+
   function Task(arg, startNow) { // 2nd arg is bool
     this.initTime = new Date();
     if(typeof arg === 'string') { // create new task with arg being name
