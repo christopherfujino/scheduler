@@ -2,6 +2,7 @@
 
 ### todo:
 * add tag system
+* add: minimize/restore feature to tasks
 
 ### finished:
 
