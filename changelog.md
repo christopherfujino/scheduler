@@ -5,6 +5,9 @@
 
 ### finished:
 
+version 0.8.1
+* fixed: app will load saved data from older versions > 0.6
+
 version 0.8
 * have new tasks placed at beginning of arrays
 * added: $scope.startToDoTask() to move tasks from taskStore.toDoTasks[] to taskStore.activeTasks[]
