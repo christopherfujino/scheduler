@@ -23,37 +23,61 @@
     </nav>
 
     <div class='container-fluid'>
-      <div class='stack stats'>
-        <div class='task' data-ng-repeat='i in taskStore'>
-          <table class='' >
-            <tr>
-              <td class=''>Task name</td>
-              <td class='' data-ng-switch='i.nameBool'>
-                <div data-ng-switch-when='false' data-ng-click='i.toggleName();'>{{ i.name }}</div>
-                <form data-ng-switch-when='true' data-ng-submit='i.toggleName();'><input type='text' data-ng-blur='i.toggleName();' data-ng-model='i.name'></form>
-              </td>
-            </tr>
-            <tr>
-              <td class=''>Date</td>
-              <td class=''>{{ i.date }}</td>
-            </tr>
-            <tr>
-              <td class=''>Time elapsed</td>
-              <td class='monospaced'>{{ i.lapsedTimeString }}</td>
-            </tr>
-            <tr>
-              <td colspan=2>
-                <button class='btn btn-default' type='button' class='delete' data-ng-click='i.remove($index)'>Delete</button>
-                <span ng-switch='i.isPaused'>
-                  <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'>Resume</button>
-                  <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'>Stop</button>
-                </span>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
 
+      <div class='row task-row'>
+        <div class='col-md-4 col-sm-1'>
+          <div class='panel panel-default'>
+
+            <div class='panel-heading'>
+              Active
+            </div>
+
+            <div class='panel-body'>
+              <div class='task' data-ng-repeat='i in taskStore'>
+                <table class='table table-striped'>
+                  <tr>
+                    <td class=''>Task name</td>
+                    <td class='' data-ng-switch='i.nameBool'>
+                      <div data-ng-switch-when='false' data-ng-click='i.toggleName();'>{{ i.name }}</div>
+                      <form data-ng-switch-when='true' data-ng-submit='i.toggleName();'><input type='text' data-ng-blur='i.toggleName();' data-ng-model='i.name'></form>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class=''>Date</td>
+                    <td class=''>{{ i.date }}</td>
+                  </tr>
+                  <tr>
+                    <td class=''>Time elapsed</td>
+                    <td class='monospaced'>{{ i.lapsedTimeString }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan=2>
+                      <button class='btn btn-default' type='button' class='delete' data-ng-click='i.remove($index)'>Delete</button>
+                      <span ng-switch='i.isPaused'>
+                        <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'>Resume</button>
+                        <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'>Stop</button>
+                      </span>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class='col-md-4 col-sm-1'>
+          <div class='panel panel-default'>
+            <div class='panel-heading'>
+              To Do
+            </div>
+            <div class='panel-body'>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
     <!-- scripts -->

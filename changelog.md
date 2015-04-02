@@ -6,6 +6,8 @@
 
 ### finished:
 
+* add: bootstrap columns for active and 'to do' tasks
+
 version 0.6
 * add: active tasks now auto-save every x (currently 20) seconds
 * change: no longer discard saved tasks with cumulativeTime==0 as these might be 'To Do' tasks
