@@ -6,6 +6,7 @@
 
 ### finished:
 
+version 0.6
 * add: active tasks now auto-save every x (currently 20) seconds
 * change: no longer discard saved tasks with cumulativeTime==0 as these might be 'To Do' tasks
 
