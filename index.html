@@ -10,16 +10,36 @@
   <body ng-app='scheduler' ng-controller='main'>
     <nav class="navbar navbar-default navbar-fixed-top" id='my-navbar'>
       <div class="container-fluid">
-        <p class='navbar-text'>
-          Scheduler {{ version }}
-        </p>
-        <form class="navbar-form navbar-left" role=''>
-          <div class='form-group'>
-            <input class='form-control' type='text' data-ng-model='taskName'>
+        <div class='row'>
+          <div class='col-xs-12'>
+            <p class='navbar-text'>
+              Scheduler {{ version }}
+            </p>
+            <form class="navbar-form" role=''>
+              <div class="input-group">
+                <input type="text" placeholder="Task name..." class="form-control" data-ng-model='taskName'>
+                <div class="input-group-btn">
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Create Task <span class="caret"></span></button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#" data-ng-click='newTask(taskName, true)'>Start Now</a></li>
+                    <li><a href="#" data-ng-click='newTask(taskName, false)'>To Do Later</a></li>
+                  </ul>
+                </div><!-- /btn-group -->
+              </div><!-- /input-group -->
+            </form>
           </div>
-          <button class='btn btn-default' type='submit' data-ng-click='newTask(taskName, true)'>Start Task Now</button>
+        </div>
+
+
+<!--
+          <div class='form-group'>
+            <input class='form-control' placeholder="Task name..." type='text' data-ng-model='taskName'>
+          </div>
+          <button class='btn btn-default' type='submit' data-ng-click='newTask(taskName, true)'>Start Now</button>
           <button class='btn btn-default' type='submit' data-ng-click='newTask(taskName, false)'>To Do Later</button>
-        </form>
+        -->
+
+
       </div>
     </nav>
 
@@ -108,6 +128,8 @@
     </div> <!-- .container-fluid -->
 
     <!-- scripts -->
+    <script src='scripts/jquery.min.js'></script>
+    <script src='scripts/bootstrap.min.js'></script>
     <script src='scripts/angular.min.js'></script>
     <script src='scripts/app.js'></script>
 
