@@ -1,6 +1,10 @@
 # Scheduler <small>Changelog</small>
 
-version 0.5
+### todo:
+* add "todo" feature
+* add tag system
+
+### finished:
 * fix: discarding of saved tasks with cumulativeTime==0 didn't work because constructors must return objects, now fixed
 * migrate to bootstrap.css
 

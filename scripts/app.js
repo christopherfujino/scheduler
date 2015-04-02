@@ -1,7 +1,9 @@
+'use strict';
+
 var app = angular.module('scheduler',[]); // requires angularJS version >= 1.4
 
 app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
-  $scope.version = '0.5';
+  $scope.version = '0.5a';
   $scope.nameBool = false; // name is clicked?
 
   // check for local storage
