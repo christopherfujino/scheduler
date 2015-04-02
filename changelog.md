@@ -3,6 +3,7 @@
 ### todo:
 * add tag system
 * separate view for 'to do' tasks
+* change: no longer discard saved tasks with cumulativeTime==0 as these might be 'To Do' tasks
 
 ### finished:
 
