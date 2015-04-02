@@ -2,12 +2,14 @@
 
 ### todo:
 * add tag system
-* separate view for 'to do' tasks
-* refactor taskStore as an object, with separate arrays for activeTasks & toDoTasks
+* move tasks from 'to do' column to 'active' column when started
 
 ### finished:
 
+version 0.7
 * add: bootstrap columns for active and 'to do' tasks
+* refactor taskStore as an object, with separate arrays for activeTasks & toDoTasks
+* separate view for 'to do' tasks
 
 version 0.6
 * add: active tasks now auto-save every x (currently 20) seconds
