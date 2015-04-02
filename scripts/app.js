@@ -18,8 +18,8 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
   };
   console.log($scope.taskStore);
 
-  $scope.newTask = function(name) {
-    var temp = new Task(name);
+  $scope.newTask = function(name, startNow) {
+    var temp = new Task(name, startNow);
     if(temp.error !== true) this.taskStore.push(temp);
   };
 
@@ -28,23 +28,28 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     localStorage.setItem('taskStore', JSON.stringify($scope.taskStore));
   };
 
-  function Task(arg) {
+  function Task(arg, startNow) { // 2nd arg is bool
+    console.log(startNow);
     this.initTime = this.endTime = new Date(); // initialize both times to now
     if(typeof arg === 'string') { // create new task with arg being name
       this.name = arg; // arg coming from text input box
       this.cumulativeTime = 0; // time lapsed prior to a pause, integer
       this.date = this.initTime.toDateString();
       this.lapsedTimeString = '';
-      this.isPaused = false; // begin task unpaused, this bool used for ngSwitch
+      if(startNow === true) {
+        this.isPaused = false;
+        this.timeoutHandler = $timeout(increment, 1000, true, this); // 3rd arg is def, 4th is arg to pass to increment
+      }
+      else { this.isPaused = true; }
     }
     else if (typeof arg === 'object') { // recreating saved task from local storage
       if(arg.cumulativeTime === 0) return {error : true};
       this.name = arg.name;
       this.cumulativeTime = arg.cumulativeTime;
       this.date = arg.date;
-      this.isPaused = true; // saved tasks always load paused
+      this.isPaused = true;
     }
-    this.nameBool = false; // don't start in name edit mode
+    this.nameBool = false;  // don't start in name edit mode
     this.toggleName = function() { if (this.nameBool) this.nameBool = false; else this.nameBool = true; }
 
     function increment(task) {
@@ -52,8 +57,6 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       task.setLapsedTime();
       task.timeoutHandler = $timeout(increment, 1000, true, task);
     }
-
-    if (!this.isPaused) this.timeoutHandler = $timeout(increment, 1000, true, this); // 3rd arg is def, 4th is arg to pass to increment
 
     this.setLapsedTime = function() {
       var x = Math.floor((this.cumulativeTime + new Date().getTime() - this.initTime.getTime())/1000);

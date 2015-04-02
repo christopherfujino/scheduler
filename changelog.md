@@ -1,10 +1,11 @@
 # Scheduler <small>Changelog</small>
 
 ### todo:
-* add "todo" feature
 * add tag system
+* separate view for 'to do' tasks
 
 ### finished:
+* change: there are now separate buttons: 1) 'Start New Task'; & 2) 'To Do Later'
 * fix: discarding of saved tasks with cumulativeTime==0 didn't work because constructors must return objects, now fixed
 * migrate to bootstrap.css
 

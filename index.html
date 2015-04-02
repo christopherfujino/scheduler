@@ -16,7 +16,8 @@
           <div class='form-group'>
             <input class='form-control' type='text' data-ng-model='taskName'>
           </div>
-          <button class='btn btn-default' type='submit' ng-click='newTask(taskName)'>Start new task</button>
+          <button class='btn btn-default' type='submit' data-ng-click='newTask(taskName, true)'>Start Task Now</button>
+          <button class='btn btn-default' type='submit' data-ng-click='newTask(taskName, false)'>To Do Later</button>
         </form>
       </div>
     </nav>
