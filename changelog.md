@@ -7,6 +7,8 @@
 
 ### finished:
 
+* add: active tasks now auto-save every x (currently 20) seconds
+
 version 0.5
 * change: there are now separate buttons: 1) 'Start New Task'; & 2) 'To Do Later'
 * fix: discarding of saved tasks with cumulativeTime==0 didn't work because constructors must return objects, now fixed
