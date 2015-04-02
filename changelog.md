@@ -3,6 +3,7 @@
 ### todo:
 * add tag system
 * separate view for 'to do' tasks
+* refactor taskStore as an object, with separate arrays for activeTasks & toDoTasks
 
 ### finished:
 
