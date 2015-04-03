@@ -3,16 +3,16 @@
 var app = angular.module('scheduler',[]); // requires angularJS version >= 1.4
 
 app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
-  $scope.version = '0.8.2';
+  $scope.version = '0.9a';
   $scope.nameBool = false; // name is clicked?
 
-  // check for local storage
   $scope.taskStore = {
     version : $scope.version,
     activeTasks : [],
     toDoTasks : []
   };
-  var temp = localStorage.getItem('taskStore');
+
+  var temp = localStorage.getItem('taskStore'); // read taskStore from localStorage
   if(temp) { // load saved taskStore if it exists
     var obj = JSON.parse(temp);
 
@@ -42,7 +42,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       var temp = new Task(x); // temp created to check if Task() returns error object
       if(temp.error !== true) $scope.taskStore.toDoTasks.push(temp); // don't push if Task() returns error object
     });
-  };
+  }
   console.log($scope.taskStore);
 
   $scope.updateStorage = function() {
