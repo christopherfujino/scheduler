@@ -55,23 +55,24 @@
 
             <div class='panel-body'>
 
-              <div data-ng-repeat='i in taskStore.activeTasks'>
+              <div data-ng-repeat='i in taskStore.activeTasks' class='well'>
                 <div data-ng-switch='i.nameBool'>
                   <div data-ng-switch-when='false' data-ng-click='i.toggleName();' style='display: inline-block;'>{{ i.name }}</div>
-                  <button type='button' class='btn btn-default' data-toggle='collapse' data-target='#active-task-details-{{$index}}'>
+                  <form class='name-input' data-ng-switch-when='true' data-ng-submit='i.toggleName();'>
+                    <input type='text' data-ng-blur='i.toggleName();' data-ng-model='i.name'>
+                  </form>
+                  <button type='button' class='close' data-toggle='collapse' data-target='#active-task-details-{{$index}}'>
                     <span class='caret'></span>
                   </button>
                   <button type='button' class='close' data-ng-click='i.remove("active", $index)'>&times;</button>
-                  <form data-ng-switch-when='true' data-ng-submit='i.toggleName();'><input type='text' data-ng-blur='i.toggleName();' data-ng-model='i.name'></form>
                 </div>
                 <div class='collapse' id='active-task-details-{{$index}}'>
-                  Hidden!!!
-                </div>
-                <div>
-                  Date:&nbsp;{{ i.date }}
-                </div>
-                <div>
-                  Time elapsed&nbsp;<span class='monospaced'>{{ i.lapsedTimeString }}</span>
+                  <div>
+                    Date:&nbsp;{{ i.date }}
+                  </div>
+                  <div>
+                    Time elapsed&nbsp;<span class='monospaced'>{{ i.lapsedTimeString }}</span>
+                  </div>
                 </div>
 
                 <div>

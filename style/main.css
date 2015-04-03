@@ -5,3 +5,7 @@ body {
 .monospaced {
   font-family: monospace;
 }
+
+.name-input {
+  display: inline-block;
+}
