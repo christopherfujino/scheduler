@@ -55,44 +55,41 @@
 
             <div class='panel-body'>
 
-              <table data-ng-repeat='i in taskStore.activeTasks' class='table table-striped table-bordered table-condensed'>
-                <tr>
-                  <th class='' colspan=2 data-ng-switch='i.nameBool'>
-                    <div data-ng-switch-when='false' data-ng-click='i.toggleName();' style='display: inline-block;'>{{ i.name }}</div>
-                    <a href='#'><span class='caret'></span></a>
-                    <button type='button' class='close' data-ng-click='i.remove("active", $index)'>&times;</button>
-                    <form data-ng-switch-when='true' data-ng-submit='i.toggleName();'><input type='text' data-ng-blur='i.toggleName();' data-ng-model='i.name'></form>
-                  </th>
-                </tr>
-                <tr>
-                  <td class=''>Date</td>
-                  <td class=''>{{ i.date }}</td>
-                </tr>
-                <tr>
-                  <td class=''>Time elapsed</td>
-                  <td class='monospaced'>{{ i.lapsedTimeString }}</td>
-                </tr>
-                <tr>
-                  <td colspan='2'>
+              <div data-ng-repeat='i in taskStore.activeTasks'>
+                <div data-ng-switch='i.nameBool'>
+                  <div data-ng-switch-when='false' data-ng-click='i.toggleName();' style='display: inline-block;'>{{ i.name }}</div>
+                  <button type='button' class='btn btn-default' data-toggle='collapse' data-target='#active-task-details-{{$index}}'>
+                    <span class='caret'></span>
+                  </button>
+                  <button type='button' class='close' data-ng-click='i.remove("active", $index)'>&times;</button>
+                  <form data-ng-switch-when='true' data-ng-submit='i.toggleName();'><input type='text' data-ng-blur='i.toggleName();' data-ng-model='i.name'></form>
+                </div>
+                <div class='collapse' id='active-task-details-{{$index}}'>
+                  Hidden!!!
+                </div>
+                <div>
+                  Date:&nbsp;{{ i.date }}
+                </div>
+                <div>
+                  Time elapsed&nbsp;<span class='monospaced'>{{ i.lapsedTimeString }}</span>
+                </div>
 
-                    <div class="input-group">
-                      <input type="text" placeholder="Add New Tag..." class="form-control" data-ng-model='tagName'>
-                      <div class="input-group-btn">
-                        <button type='button' class='btn btn-default' data-ng-click=''><span class='fa fa-plus'></span></button>
-                      </div><!-- /btn-group -->
-                    </div><!-- /input-group -->
+                <div>
+                  <div class="input-group">
+                    <input type="text" placeholder="Add New Tag..." class="form-control" data-ng-model='tagName'>
+                    <div class="input-group-btn">
+                      <button type='button' class='btn btn-default' data-ng-click=''><span class='fa fa-plus'></span></button>
+                    </div><!-- /btn-group -->
+                  </div><!-- /input-group -->
+                </div>
 
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan='2'>
-                    <span ng-switch='i.isPaused'>
-                      <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'><span class='fa fa-play'></span></button>
-                      <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'><span class='fa fa-pause'></span></button>
-                    </span>
-                  </td>
-                </tr>
-              </table>
+                <div>
+                  <span ng-switch='i.isPaused'>
+                    <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'><span class='fa fa-play'></span></button>
+                    <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'><span class='fa fa-pause'></span></button>
+                  </span>
+                </div>
+              </div>
 
             </div>
 
