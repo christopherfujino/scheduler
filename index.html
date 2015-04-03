@@ -61,10 +61,10 @@
                   <form class='name-input' data-ng-switch-when='true' data-ng-submit='i.toggleName();'>
                     <input type='text' data-ng-blur='i.toggleName();' data-ng-model='i.name'>
                   </form>
+                  <button type='button' class='close' data-ng-click='i.remove("active", $index)'>&times;</button>
                   <button type='button' class='close' data-toggle='collapse' data-target='#active-task-details-{{$index}}'>
                     <span class='caret'></span>
                   </button>
-                  <button type='button' class='close' data-ng-click='i.remove("active", $index)'>&times;</button>
                 </div>
                 <div class='collapse' id='active-task-details-{{$index}}'>
                   <div>
