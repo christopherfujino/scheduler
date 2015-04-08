@@ -9,3 +9,7 @@ body {
 .name-input {
   display: inline-block;
 }
+
+.task-button {
+  margin-left: 0.5em;
+}

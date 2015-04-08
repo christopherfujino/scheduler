@@ -63,10 +63,14 @@
                     <form class='name-input' data-ng-switch-when='true' data-ng-submit='i.toggleName();'>
                       <input type='text' data-ng-blur='i.toggleName();' data-ng-model='i.name'>
                     </form>
-                    <button type='button' class='close' data-ng-click='i.remove("active", $index)'>&times;</button>
-                    <button type='button' class='close' data-toggle='collapse' data-target='.active-task-details-{{$index}}'>
+                    <button type='button' class='pull-right btn btn-default btn-xs task-button' data-ng-click='i.remove("active", $index)'>&times;</button>
+                    <button type='button' class='pull-right btn btn-default btn-xs task-button' data-toggle='collapse' data-target='.active-task-details-{{$index}}'>
                       <span class='caret'></span>
                     </button>
+                    <span ng-switch='i.isPaused'>
+                      <button class='btn btn-default btn-xs pull-right task-button' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'><span class='fa fa-play'></span></button>
+                      <button class='btn btn-default btn-xs pull-right task-button' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'><span class='fa fa-pause'></span></button>
+                    </span>
                   </li>
                   <div class='collapse active-task-details-{{$index}}'>
                     <li class='list-group-item'>
@@ -88,11 +92,8 @@
                 </div>
 
                 <div>
-                  <span ng-switch='i.isPaused'>
-                    <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'><span class='fa fa-play'></span></button>
-                    <button class='btn btn-default' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'><span class='fa fa-pause'></span></button>
-                  </span>
                 </div>
+
               </div>
 
             </div>
