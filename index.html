@@ -55,53 +55,46 @@
 
             <div class='panel-body'>
 
-              <div data-ng-repeat='i in taskStore.activeTasks' class='well'>
-                <ul class='list-group'>
-                  <li class='list-group-item' data-ng-switch='i.nameBool'>
-                    <span data-ng-switch-when='false' data-ng-click='i.toggleName();' style='display: inline-block;'><b>{{i.name}}</b></span>
-                    <form class='name-input' data-ng-switch-when='true' data-ng-submit='i.toggleName();'>
-                      <input type='text' data-ng-blur='i.toggleName();' data-ng-model='i.name'>
-                    </form>
-                    <button type='button' class='btn btn-default btn-xs task-display' data-ng-click='i.remove("active", $index)'>&times;</button>
-                    <button type='button' class='btn btn-default btn-xs task-display' data-toggle='collapse' data-target='.active-task-details-{{$index}}'>
-                      <span class='caret'></span>
-                    </button>
-                    <span ng-switch='i.isPaused'>
-                      <button class='btn btn-default btn-xs task-display' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'><span class='fa fa-play'></span></button>
-                      <button class='btn btn-default btn-xs task-display' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'><span class='fa fa-pause'></span></button>
-                    </span>
-                    <span class='task-display'>{{ i.lapsedTimeString }}</span>
+              <ul class='list-group ' data-ng-repeat='i in taskStore.activeTasks'>
+                <li class='list-group-item' data-ng-switch='i.nameBool'>
+                  <span data-ng-switch-when='false' data-ng-click='i.toggleName();' style='display: inline-block;'><b>{{i.name}}</b></span>
+                  <form class='name-input' data-ng-switch-when='true' data-ng-submit='i.toggleName();'>
+                    <input type='text' data-ng-blur='i.toggleName();' data-ng-model='i.name'>
+                  </form>
+                  <button type='button' class='btn btn-default btn-xs task-display' data-ng-click='i.remove("active", $index)'>&times;</button>
+                  <button type='button' class='btn btn-default btn-xs task-display' data-toggle='collapse' data-target='.active-task-details-{{$index}}'>
+                    <span class='caret'></span>
+                  </button>
+                  <span ng-switch='i.isPaused'>
+                    <button class='btn btn-default btn-xs task-display' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'><span class='fa fa-play'></span></button>
+                    <button class='btn btn-default btn-xs task-display' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'><span class='fa fa-pause'></span></button>
+                  </span>
+                  <span class='task-display'>{{ i.lapsedTimeString }}</span>
+                </li>
+                <div class='collapse active-task-details-{{$index}}'>
+                  <li class='list-group-item'>
+                    Date:&nbsp;{{ i.date }}
                   </li>
-                  <div class='collapse active-task-details-{{$index}}'>
-                    <li class='list-group-item'>
-                      Date:&nbsp;{{ i.date }}
-                    </li>
 
-                    <li class='list-group-item'> <!-- list tags -->
-                      <ul class='list-inline ckf-inline-block'>
-                        <li ng-repeat='j in i.tags'>
-                          <span class='label label-default'>{{j}}<button type='button' class='close' data-ng-click='removeTag(j, i)'>&times;</button></span>
-                        </li>
-                      </ul>
-                    </li>
+                  <li class='list-group-item'> <!-- list tags -->
+                    <ul class='list-inline ckf-inline-block'>
+                      <li ng-repeat='j in i.tags'>
+                        <span class='label label-primary'>{{j}}<button type='button' class='close' data-ng-click='removeTag(j, i)'>&times;</button></span>
+                      </li>
+                    </ul>
+                  </li>
 
-                    <li class='list-group-item'> <!-- add tag feature -->
-                      <div class="input-group">
-                        <input type="text" placeholder="Add New Tag..." class="form-control" data-ng-model='tagText'>
-                        <div class="input-group-btn">
-                          <button type='button' class='btn btn-default' data-ng-click='addTag(tagText, i);'><span class='fa fa-plus'></span></button>
-                        </div><!-- /btn-group -->
-                      </div><!-- /input-group -->
-                    </li>
-
-                  </div>
-                </ul>
-
-                <div>
+                  <li class='list-group-item'> <!-- add tag feature -->
+                    <form class="input-group">
+                      <input type="text" placeholder="Add New Tag..." class="form-control" data-ng-model='tagText'>
+                      <div class="input-group-btn">
+                        <button type='button' class='btn btn-default' data-ng-click='addTag(tagText, i);'><span class='fa fa-plus'></span></button>
+                      </div><!-- /btn-group -->
+                    </form><!-- /input-group -->
+                  </li>
 
                 </div>
-
-              </div>
+              </ul>
 
             </div>
 
@@ -117,46 +110,44 @@
 
             <div class='panel-body'>
 
-              <div class='well' data-ng-repeat='i in taskStore.toDoTasks'>
-                <ul class='list-group'>
-                  <li class='list-group-item' data-ng-switch='i.nameBool'>
-                    <span data-ng-switch-when='false' data-ng-click='i.toggleName();' style='display: inline-block;'><b>{{i.name}}</b></span>
-                    <form class='name-input' data-ng-switch-when='true' data-ng-submit='i.toggleName();'>
-                      <input type='text' data-ng-blur='i.toggleName();' data-ng-model='i.name'>
-                    </form>
-                    <button type='button' class='btn btn-default btn-xs task-display' data-ng-click='i.remove("toDo", $index)'>&times;</button>
-                    <button type='button' class='btn btn-default btn-xs task-display' data-toggle='collapse' data-target='.to-do-task-details-{{$index}}'>
-                      <span class='caret'></span>
-                    </button>
-                    <button class='btn btn-default btn-xs task-display' type='button' data-ng-click='startToDoTask($index);'><span class='fa fa-play'></span></button>
+              <ul class='list-group' data-ng-repeat='i in taskStore.toDoTasks'>
+                <li class='list-group-item' data-ng-switch='i.nameBool'>
+                  <span data-ng-switch-when='false' data-ng-click='i.toggleName();' style='display: inline-block;'><b>{{i.name}}</b></span>
+                  <form class='name-input' data-ng-switch-when='true' data-ng-submit='i.toggleName();'>
+                    <input type='text' data-ng-blur='i.toggleName();' data-ng-model='i.name'>
+                  </form>
+                  <button type='button' class='btn btn-default btn-xs task-display' data-ng-click='i.remove("toDo", $index)'>&times;</button>
+                  <button type='button' class='btn btn-default btn-xs task-display' data-toggle='collapse' data-target='.to-do-task-details-{{$index}}'>
+                    <span class='caret'></span>
+                  </button>
+                  <button class='btn btn-default btn-xs task-display' type='button' data-ng-click='startToDoTask($index);'><span class='fa fa-play'></span></button>
+                </li>
+
+                <div class='collapse to-do-task-details-{{$index}}'>
+                  <li class='list-group-item'>
+                    Date:&nbsp;{{ i.date }}
                   </li>
 
-                  <div class='collapse to-do-task-details-{{$index}}'>
-                    <li class='list-group-item'>
-                      Date:&nbsp;{{ i.date }}
-                    </li>
+                  <li class='list-group-item'> <!-- list tags -->
+                    <ul class='list-inline ckf-inline-block'>
+                      <li ng-repeat='j in i.tags'>
+                        <span class='label label-primary'>{{j}}<button type='button' class='close' data-ng-click='removeTag(j, i)'>&times;</button></span>
+                      </li>
+                    </ul>
+                  </li>
 
-                    <li class='list-group-item'> <!-- list tags -->
-                      <ul class='list-inline ckf-inline-block'>
-                        <li ng-repeat='j in i.tags'>
-                          <span class='label label-default'>{{j}}<button type='button' class='close' data-ng-click='removeTag(j, i)'>&times;</button></span>
-                        </li>
-                      </ul>
-                    </li>
+                  <li class='list-group-item'> <!-- add tag feature -->
+                    <div class="input-group">
+                      <input type="text" placeholder="Add New Tag..." class="form-control" data-ng-model='tagText'>
+                      <div class="input-group-btn">
+                        <button type='button' class='btn btn-default' data-ng-click='addTag(tagText, i);'><span class='fa fa-plus'></span></button>
+                      </div><!-- /btn-group -->
+                    </div><!-- /input-group -->
+                  </li>
 
-                    <li class='list-group-item'> <!-- add tag feature -->
-                      <div class="input-group">
-                        <input type="text" placeholder="Add New Tag..." class="form-control" data-ng-model='tagText'>
-                        <div class="input-group-btn">
-                          <button type='button' class='btn btn-default' data-ng-click='addTag(tagText, i);'><span class='fa fa-plus'></span></button>
-                        </div><!-- /btn-group -->
-                      </div><!-- /input-group -->
-                    </li>
+                </div>
 
-                  </div>
-
-                </ul>
-              </div>
+              </ul>
 
             </div>
           </div>
