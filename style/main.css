@@ -14,3 +14,7 @@ body {
   float: right;
   margin-left: 0.5em;
 }
+
+.ckf-inline-block {
+  display: inline-block;
+}

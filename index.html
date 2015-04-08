@@ -77,13 +77,17 @@
                       Date:&nbsp;{{ i.date }}
                     </li>
                     <li class='list-group-item'>
-                      Time elapsed:&nbsp;<span class='monospaced'>{{ i.lapsedTimeString }}</span>
+                      <ul class='list-inline ckf-inline-block'>
+                        <li ng-repeat='j in i.tags'>
+                          <span class='label label-default'>{{j}}<button type='button' class='close' data-ng-click='removeTag(j, i)'>&times;</button></span>
+                        </li>
+                      </ul>
                     </li>
                     <li class='list-group-item'>
                       <div class="input-group">
-                        <input type="text" placeholder="Add New Tag..." class="form-control" data-ng-model='tagName'>
+                        <input type="text" placeholder="Add New Tag..." class="form-control" data-ng-model='tagText'>
                         <div class="input-group-btn">
-                          <button type='button' class='btn btn-default' data-ng-click=''><span class='fa fa-plus'></span></button>
+                          <button type='button' class='btn btn-default' data-ng-click='addTag(tagText, i);'><span class='fa fa-plus'></span></button>
                         </div><!-- /btn-group -->
                       </div><!-- /input-group -->
                     </li>

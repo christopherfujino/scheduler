@@ -63,6 +63,18 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     }
   };
 
+  $scope.addTag = function(tag, task) {
+    if(task.addTag(tag)) {
+      $scope.updateStorage();
+    };
+  };
+
+  $scope.removeTag = function(tag, task) {
+    if(task.removeTag(tag)){
+      $scope.updateStorage();
+    };
+  }
+
   $scope.startToDoTask = function(index) {
     var activatedTask = $scope.taskStore.toDoTasks.splice(index, 1)[0];
     $scope.taskStore.activeTasks.unshift(activatedTask);
@@ -70,6 +82,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
   };
 
   function Task(arg, startNow) { // 1st arg is string for new obj, obj for loaded obj; 2nd arg is bool
+    this.tags = [];
     this.initTime = new Date();
     if(typeof arg === 'string') { // create new task with arg being name
       this.name = arg; // arg coming from text input box
@@ -88,6 +101,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       this.cumulativeTime = arg.cumulativeTime;
       this.date = arg.date;
       this.isPaused = true;
+      this.tags = arg.tags.slice(0);
     }
     this.nameBool = false;  // don't start in name edit mode
     this.toggleName = function() { if (this.nameBool) this.nameBool = false; else this.nameBool = true; }
@@ -138,6 +152,30 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
         throw new Error('unknown type "' + type + '" in Task.remove()');
       }
       $scope.updateStorage();
+    };
+    this.addTag = function(tag) {
+      var isRepeat = false;
+      this.tags.forEach(function(x) {
+        if (x==tag) isRepeat = true;
+      });
+      if(!isRepeat) {
+        this.tags.push(tag);
+        return true;
+      }
+      else return false;
+    };
+    this.removeTag = function(tag) {
+      var tagToRemove = null;
+      this.tags.forEach(function(x, index) {
+        if (x==tag) tagToRemove = index;
+      });
+      if(tagToRemove !== null) {
+        this.tags.splice(tagToRemove, 1);
+        return true;
+      }
+      else {
+        return false;
+      }
     };
     this.save = function() { //
       var now = new Date();
