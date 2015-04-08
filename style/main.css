@@ -10,6 +10,7 @@ body {
   display: inline-block;
 }
 
-.task-button {
+.task-display {
+  float: right;
   margin-left: 0.5em;
 }

@@ -58,19 +58,19 @@
               <div data-ng-repeat='i in taskStore.activeTasks' class='well'>
                 <ul class='list-group'>
                   <li class='list-group-item' data-ng-switch='i.nameBool'>
-                    Task name:
-                    <span data-ng-switch-when='false' data-ng-click='i.toggleName();' style='display: inline-block;'>{{ i.name }}</span>
+                    <span data-ng-switch-when='false' data-ng-click='i.toggleName();' style='display: inline-block;'><b>{{i.name}}</b></span>
                     <form class='name-input' data-ng-switch-when='true' data-ng-submit='i.toggleName();'>
                       <input type='text' data-ng-blur='i.toggleName();' data-ng-model='i.name'>
                     </form>
-                    <button type='button' class='pull-right btn btn-default btn-xs task-button' data-ng-click='i.remove("active", $index)'>&times;</button>
-                    <button type='button' class='pull-right btn btn-default btn-xs task-button' data-toggle='collapse' data-target='.active-task-details-{{$index}}'>
+                    <button type='button' class='btn btn-default btn-xs task-display' data-ng-click='i.remove("active", $index)'>&times;</button>
+                    <button type='button' class='btn btn-default btn-xs task-display' data-toggle='collapse' data-target='.active-task-details-{{$index}}'>
                       <span class='caret'></span>
                     </button>
                     <span ng-switch='i.isPaused'>
-                      <button class='btn btn-default btn-xs pull-right task-button' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'><span class='fa fa-play'></span></button>
-                      <button class='btn btn-default btn-xs pull-right task-button' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'><span class='fa fa-pause'></span></button>
+                      <button class='btn btn-default btn-xs task-display' type='button' data-ng-click='i.pause()' data-ng-switch-when='true'><span class='fa fa-play'></span></button>
+                      <button class='btn btn-default btn-xs task-display' type='button' data-ng-click='i.pause()' data-ng-switch-when='false'><span class='fa fa-pause'></span></button>
                     </span>
+                    <span class='task-display'>{{ i.lapsedTimeString }}</span>
                   </li>
                   <div class='collapse active-task-details-{{$index}}'>
                     <li class='list-group-item'>
@@ -79,19 +79,19 @@
                     <li class='list-group-item'>
                       Time elapsed:&nbsp;<span class='monospaced'>{{ i.lapsedTimeString }}</span>
                     </li>
+                    <li class='list-group-item'>
+                      <div class="input-group">
+                        <input type="text" placeholder="Add New Tag..." class="form-control" data-ng-model='tagName'>
+                        <div class="input-group-btn">
+                          <button type='button' class='btn btn-default' data-ng-click=''><span class='fa fa-plus'></span></button>
+                        </div><!-- /btn-group -->
+                      </div><!-- /input-group -->
+                    </li>
                   </div>
                 </ul>
 
                 <div>
-                  <div class="input-group">
-                    <input type="text" placeholder="Add New Tag..." class="form-control" data-ng-model='tagName'>
-                    <div class="input-group-btn">
-                      <button type='button' class='btn btn-default' data-ng-click=''><span class='fa fa-plus'></span></button>
-                    </div><!-- /btn-group -->
-                  </div><!-- /input-group -->
-                </div>
 
-                <div>
                 </div>
 
               </div>
