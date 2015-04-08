@@ -1,10 +1,11 @@
 # Scheduler <small>Changelog</small>
 
 ### todo:
-* add: minimize/restore feature to tasks
+* add: readout for tags
 
 ### finished:
 
+version 0.9
 * added: tag system
 * changed: streamlined UI interface
 
