@@ -56,24 +56,27 @@
             <div class='panel-body'>
 
               <div data-ng-repeat='i in taskStore.activeTasks' class='well'>
-                <div data-ng-switch='i.nameBool'>
-                  <div data-ng-switch-when='false' data-ng-click='i.toggleName();' style='display: inline-block;'>{{ i.name }}</div>
-                  <form class='name-input' data-ng-switch-when='true' data-ng-submit='i.toggleName();'>
-                    <input type='text' data-ng-blur='i.toggleName();' data-ng-model='i.name'>
-                  </form>
-                  <button type='button' class='close' data-ng-click='i.remove("active", $index)'>&times;</button>
-                  <button type='button' class='close' data-toggle='collapse' data-target='#active-task-details-{{$index}}'>
-                    <span class='caret'></span>
-                  </button>
-                </div>
-                <div class='collapse' id='active-task-details-{{$index}}'>
-                  <div>
-                    Date:&nbsp;{{ i.date }}
+                <ul class='list-group'>
+                  <li class='list-group-item' data-ng-switch='i.nameBool'>
+                    Task name:
+                    <span data-ng-switch-when='false' data-ng-click='i.toggleName();' style='display: inline-block;'>{{ i.name }}</span>
+                    <form class='name-input' data-ng-switch-when='true' data-ng-submit='i.toggleName();'>
+                      <input type='text' data-ng-blur='i.toggleName();' data-ng-model='i.name'>
+                    </form>
+                    <button type='button' class='close' data-ng-click='i.remove("active", $index)'>&times;</button>
+                    <button type='button' class='close' data-toggle='collapse' data-target='.active-task-details-{{$index}}'>
+                      <span class='caret'></span>
+                    </button>
+                  </li>
+                  <div class='collapse active-task-details-{{$index}}'>
+                    <li class='list-group-item'>
+                      Date:&nbsp;{{ i.date }}
+                    </li>
+                    <li class='list-group-item'>
+                      Time elapsed:&nbsp;<span class='monospaced'>{{ i.lapsedTimeString }}</span>
+                    </li>
                   </div>
-                  <div>
-                    Time elapsed&nbsp;<span class='monospaced'>{{ i.lapsedTimeString }}</span>
-                  </div>
-                </div>
+                </ul>
 
                 <div>
                   <div class="input-group">
