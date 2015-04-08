@@ -1,6 +1,7 @@
 # Scheduler <small>Changelog</small>
 
 ### todo:
+* add: buttons to add/subtract time from elapsed time
 * add: readout for tags
 * change: tags to object, with property for total lapsed time and method for recalc
 
