@@ -1,12 +1,12 @@
 # Scheduler <small>Changelog</small>
 
 ### todo:
-* add tag system
 * add: minimize/restore feature to tasks
 
 ### finished:
 
-* change start/stop buttons to use icons
+* added: tag system
+* changed: streamlined UI interface
 
 version 0.8.2
 * added: font-awesome css, bootstrap & jquery js dependencies

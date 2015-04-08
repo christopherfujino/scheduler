@@ -72,7 +72,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
   $scope.removeTag = function(tag, task) {
     if(task.removeTag(tag)){
       $scope.updateStorage();
-    };
+    }
   }
 
   $scope.startToDoTask = function(index) {
@@ -158,7 +158,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       this.tags.forEach(function(x) {
         if (x==tag) isRepeat = true;
       });
-      if(!isRepeat) {
+      if(!isRepeat && tag != '') {
         this.tags.push(tag);
         return true;
       }
