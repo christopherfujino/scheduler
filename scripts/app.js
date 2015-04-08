@@ -9,7 +9,8 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
   $scope.taskStore = {
     version : $scope.version,
     activeTasks : [],
-    toDoTasks : []
+    toDoTasks : [],
+    tags : []
   };
 
   var temp = localStorage.getItem('taskStore'); // read taskStore from localStorage
@@ -42,6 +43,9 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       var temp = new Task(x); // temp created to check if Task() returns error object
       if(temp.error !== true) $scope.taskStore.toDoTasks.push(temp); // don't push if Task() returns error object
     });
+    if (obj.tags) { // if tags[] exists from memory, copy it into $scope.taskStore.tags[]
+      $scope.taskStore.tags = obj.tags.slice(0);
+    }
   }
   console.log($scope.taskStore);
 
@@ -65,6 +69,11 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
 
   $scope.addTag = function(tag, task) {
     if(task.addTag(tag)) {
+      var dupe = false; // is this tag already listed in taskStore.tags[]?
+      $scope.taskStore.tags.forEach(function(x){
+        if(x===tag) dupe=true;
+      });
+      if(!dupe) $scope.taskStore.tags.push(tag); // only add this tag if it's unique
       $scope.updateStorage();
     };
   };

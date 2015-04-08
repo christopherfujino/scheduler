@@ -2,6 +2,7 @@
 
 ### todo:
 * add: readout for tags
+* change: tags to object, with property for total lapsed time and method for recalc
 
 ### finished:
 

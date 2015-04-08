@@ -171,7 +171,7 @@
 
             <div class='panel-body'>
 
-              <table class='table table-bordered'>
+              <table class='table'>
                 <tr>
                   <th>
                     Tag
@@ -180,8 +180,13 @@
                     Total Elapsed Time
                   </th>
                 </tr>
-                <tr data-ng-repeat>
+                <tr data-ng-repeat='tag in taskStore.tags'>
+                  <td>
+                    {{tag}}
+                  </td>
+                  <td>
 
+                  </td>
                 </tr>
               </table>
 
