@@ -13,6 +13,26 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     tags : []
   };
 
+  var timeString = function(x) {
+    /*
+      this takes a quantity of seconds x, and converts it to a string of the
+      form Hs:Ms:Ss
+    */
+    x = Math.floor(x/1000);
+    var seconds = x % 60;
+    if(seconds < 10) seconds = '0' + seconds;
+    x = (x - seconds)/60;
+
+    var minutes = x % 60;
+    if (minutes < 10) minutes = '0' + minutes;
+    x = (x - minutes)/60;
+
+    var hours = x % 24;
+    if(hours < 10) hours = '0' + hours;
+
+    return hours + ':' + minutes + ':' + seconds;
+  };
+
   var temp = localStorage.getItem('taskStore'); // read taskStore from localStorage
   if(temp) { // load saved taskStore if it exists
     var obj = JSON.parse(temp);
@@ -125,20 +145,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     }
 
     this.setLapsedTime = function() {
-      var x = Math.floor((this.cumulativeTime + new Date().getTime() - this.initTime.getTime())/1000);
-
-      var seconds = x % 60;
-      if(seconds < 10) seconds = '0' + seconds;
-      x = (x - seconds)/60;
-
-      var minutes = x % 60;
-      if (minutes < 10) minutes = '0' + minutes;
-      x = (x - minutes)/60;
-
-      var hours = x % 24;
-      if(hours < 10) hours = '0' + hours;
-
-      this.lapsedTimeString = hours + ':' + minutes + ':' + seconds;
+      this.lapsedTimeString = timeString(this.cumulativeTime + new Date().getTime() - this.initTime.getTime());
     }; this.setLapsedTime(); // and now immediately call this function to initialize lapsedTimeString
 
     this.pause = function() {
