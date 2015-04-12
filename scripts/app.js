@@ -3,7 +3,7 @@
 var app = angular.module('scheduler',[]); // requires angularJS version >= 1.4
 
 app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
-  $scope.version = '0.9';
+  $scope.version = '0.10';
   $scope.nameBool = false; // name is clicked?
 
   $scope.taskStore = {
@@ -186,10 +186,10 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
 
   function Task(arg, startNow) { // 1st arg is string for new obj, obj for loaded obj; 2nd arg is bool
     this.tags = [];
-    this.initTime = new Date();
     if(typeof arg === 'string') { // create new task with arg being name
       this.name = arg; // arg coming from text input box
       this.cumulativeTime = 0; // time lapsed prior to a pause, integer
+      this.initTime = new Date();
       this.date = this.initTime.toDateString();
       this.lapsedTimeString = '';
       if(startNow === true) {
@@ -204,6 +204,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       this.cumulativeTime = arg.cumulativeTime;
       this.date = arg.date;
       this.isPaused = true;
+      this.initTime = null;
       this.tags = arg.tags.slice(0);
     }
     this.nameBool = false;  // don't start in name edit mode
@@ -218,8 +219,20 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       }
     }
 
+    this.adjustTime = function(x) {
+      if(typeof x === 'string') x=parseInt(x);
+      this.cumulativeTime += x;
+      if (this.cumulativeTime < 0) {
+        this.cumulativeTime = 0;
+      }
+      this.setLapsedTime();
+    };
+
     this.setLapsedTime = function() {
-      this.lapsedTimeString = $scope.timeString(this.cumulativeTime + new Date().getTime() - this.initTime.getTime());
+      console.log(this);
+      var temp = this.cumulativeTime + (this.initTime ? (new Date().getTime() - this.initTime.getTime()) : 0);
+      console.log(temp);
+      this.lapsedTimeString = $scope.timeString(temp);
     }; this.setLapsedTime(); // and now immediately call this function to initialize lapsedTimeString
 
     this.pause = function() {

@@ -1,9 +1,11 @@
 # Scheduler <small>Changelog</small>
 
 ### todo:
-* add: buttons to add/subtract time from elapsed time
 
 ### finished:
+
+version 0.10
+* added: buttons to add/subtract time from elapsed time
 
 version 0.9
 * added: tag system

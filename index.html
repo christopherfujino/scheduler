@@ -46,7 +46,8 @@
     <div class='container-fluid'>
 
       <div class='row task-row'>
-        <div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
+
+        <div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'> <!-- active tasks column -->
           <div class='panel panel-default'>
 
             <div class='panel-heading'>
@@ -76,6 +77,17 @@
                     Date:&nbsp;{{ i.date }}
                   </li>
 
+                  <li class='list-group-item'>
+                    <div class='btn-group'>
+                      <button type='button' class='btn btn-sm btn-default' data-ng-click='i.adjustTime(-3600000)'>-1h</button>
+                      <button type='button' class='btn btn-sm btn-default' data-ng-click='i.adjustTime(-900000)'>-15m</button>
+                      <button type='button' class='btn btn-sm btn-default' data-ng-click='i.adjustTime(-300000)'>-5m</button>
+                      <button type='button' class='btn btn-sm btn-default' data-ng-click='i.adjustTime(300000)'>+5m</button>
+                      <button type='button' class='btn btn-sm btn-default' data-ng-click='i.adjustTime(900000)'>+15m</button>
+                      <button type='button' class='btn btn-sm btn-default' data-ng-click='i.adjustTime(3600000)'>+1h</button>
+                    </div>
+                  </li>
+
                   <li class='list-group-item'> <!-- list tags -->
                     <ul class='list-inline ckf-inline-block'>
                       <li ng-repeat='j in i.tags'>
@@ -101,7 +113,7 @@
           </div>
         </div>
 
-        <div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
+        <div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'> <!-- to do tasks column -->
           <div class='panel panel-default'>
 
             <div class='panel-heading'>
