@@ -99,12 +99,6 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       else if (typeof obj.tags[0] === 'object') {
         $scope.taskStore.tags = obj.tags.slice(0);
       }
-      else {
-        console.log(obj);
-        console.log(typeof obj.tags[0]);
-        console.log(obj.tags);
-        throw new Error('Huh?!');
-      }
     }
   }
 //  console.log($scope.taskStore);
