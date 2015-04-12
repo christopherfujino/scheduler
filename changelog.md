@@ -2,13 +2,13 @@
 
 ### todo:
 * add: buttons to add/subtract time from elapsed time
-* add: readout for tags
-* change: tags to object, with property for total lapsed time and method for recalc
 
 ### finished:
 
 version 0.9
 * added: tag system
+* added: readout for tags
+* changed: tags to object literals, with property for total lapsed time
 * changed: streamlined UI interface
 
 version 0.8.2
