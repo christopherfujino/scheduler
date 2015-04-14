@@ -256,9 +256,9 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     this.addTag = function(tag) {
       var isRepeat = false;
       this.tags.forEach(function(x) {
-        if (x==tag) isRepeat = true;
+        if (x===tag) isRepeat = true;
       });
-      if(!isRepeat && tag != '') {
+      if(!isRepeat && tag !== '') {
         this.tags.push(tag);
         return true;
       }
@@ -267,7 +267,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     this.removeTag = function(tag) {
       var tagToRemove = null;
       this.tags.forEach(function(x, index) {
-        if (x==tag) tagToRemove = index;
+        if (x===tag) tagToRemove = index;
       });
       if(tagToRemove !== null) {
         this.tags.splice(tagToRemove, 1);
@@ -277,7 +277,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
         return false;
       }
     };
-    this.save = function() { //
+    this.save = function() {
       var now = new Date();
       this.cumulativeTime += now.getTime() - this.initTime.getTime();
       this.initTime = now;
