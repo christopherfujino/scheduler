@@ -139,12 +139,13 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
   $scope.removeTag = function(tag, task) {
     if(task.removeTag(tag)){
       var unique = true, // assume this tag was unique, unless another is found
+        task = {},
         loopDone = false; // should we break the outer loop?
       // check if tags should be removed, implement
       for(var i=0; !loopDone && i<$scope.taskStore.activeTasks.length; i++) {
-        var task = $scope.taskStore.activeTasks[i];
+        task = $scope.taskStore.activeTasks[i];
         for(var j=0; j<task.tags.length; j++) {
-          if (task.tags[j].tag === tag) {
+          if (task.tags[j] === tag) {
             unique = false;
             loopDone = true; // done looping, tag not unique
             break;
@@ -153,15 +154,16 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       }
 
       for(var i=0; !loopDone && i<$scope.taskStore.toDoTasks.length; i++) {
-        var task = $scope.taskStore.toDoTasks[i];
+        task = $scope.taskStore.toDoTasks[i];
         for(var j=0; j<task.tags.length; j++) {
-          if (task.tags[j].tag === tag) {
+          if (task.tags[j] === tag) {
             unique = false;
             loopDone = true; // done looping, tag not unique
             break;
           }
         }
       }
+      console.log('unique = ' + unique);
       if (unique) { // tag was unique, remove it from $scope.taskStore.tags[]
         for(var i=0; i<$scope.taskStore.tags.length; i++) {
           if(tag === $scope.taskStore.tags[i].tag) {
