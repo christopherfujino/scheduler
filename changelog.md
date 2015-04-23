@@ -1,6 +1,7 @@
 # Scheduler <small>Changelog</small>
 
 ### todo:
+* add: support for chrome app
 
 ### finished:
 

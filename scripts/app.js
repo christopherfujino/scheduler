@@ -1,5 +1,15 @@
 'use strict';
 
+var isChromeApp = (function(){
+  var theBool = chrome && chrome.app && chrome.app.runtime;
+
+  return {
+    get : function() {
+      return theBool;
+    }
+  };
+})();
+
 var app = angular.module('scheduler',[]); // requires angularJS version >= 1.4
 
 app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
@@ -57,7 +67,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     return hours + ':' + minutes + ':' + seconds;
   };
 
-  if (chrome && chrome.app && chrome.app.runtime) { // if we are in a chrome app, use chrome.storage.local
+  if (isChromeApp.get()) { // if we are in a chrome app, use chrome.storage.local
     console.log('reading from chrome.storage.local!');
     chrome.storage.local.get('taskStore', function(getObj) {
       var obj = getObj.taskStore;
@@ -193,7 +203,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
   tagRefresh();  // refresh tag times
 
   $scope.updateStorage = function() {
-    if (chrome && chrome.app && chrome.app.runtime) { // if we are in a chrome app, use chrome.storage.local
+    if (isChromeApp.get()) { // if we are in a chrome app, use chrome.storage.local
       chrome.storage.local.set( { 'taskStore' : $scope.taskStore } );
       console.log('chrome.storage.local updated!');
     }
