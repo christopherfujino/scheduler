@@ -19,7 +19,10 @@ version 0.8.2
 * changed: navbar UI streamlined
 
 version 0.8.1
-* fixed: app will load saved data from older versions > 0.6
+* fixed: app will load saved data from
+To squelch this message and adopt the new behavior now, use:
+
+ older versions > 0.6
 
 version 0.8
 * have new tasks placed at beginning of arrays

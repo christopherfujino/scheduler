@@ -88,7 +88,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
           var temp = new Task(x); // temp created to check if Task() returns error object
           if(temp.error !== true) $scope.taskStore.toDoTasks.push(temp); // don't push if Task() returns error object
         });
-        if (typeof obj.tags === 'array') { // if tags[] exists from memory, copy it into $scope.taskStore.tags[]
+        if (typeof obj.tags === 'object') { // if tags[] exists from memory, copy it into $scope.taskStore.tags[]
           if (typeof obj.tags[0] === 'string') { // api <= 0.9a
             obj.tags.forEach(function(tag){
               $scope.taskStore.tags.push({
@@ -199,13 +199,14 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
   }
 //  console.log($scope.taskStore);
 */
-  console.log($scope.taskStore);
+  console.log($scope);
   tagRefresh();  // refresh tag times
 
   $scope.updateStorage = function() {
     if (isChromeApp.get()) { // if we are in a chrome app, use chrome.storage.local
       chrome.storage.local.set( { 'taskStore' : $scope.taskStore } );
       console.log('chrome.storage.local updated!');
+      console.log($scope.taskStore);
     }
     else {  // if not in a chrome app, use localStorage
       localStorage.setItem('taskStore', JSON.stringify($scope.taskStore));
