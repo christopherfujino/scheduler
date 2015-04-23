@@ -61,7 +61,6 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     console.log('reading from chrome.storage.local!');
     chrome.storage.local.get('taskStore', function(getObj) {
       var obj = getObj.taskStore;
-      console.log(obj);
       if(obj.version) { // if this is a valid taskStore
         if (obj.version !== $scope.version) { // saved taskStore from an earlier version
           console.log(obj);
@@ -79,7 +78,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
           var temp = new Task(x); // temp created to check if Task() returns error object
           if(temp.error !== true) $scope.taskStore.toDoTasks.push(temp); // don't push if Task() returns error object
         });
-        if (obj.tags) { // if tags[] exists from memory, copy it into $scope.taskStore.tags[]
+        if (typeof obj.tags === 'array') { // if tags[] exists from memory, copy it into $scope.taskStore.tags[]
           if (typeof obj.tags[0] === 'string') { // api <= 0.9a
             obj.tags.forEach(function(tag){
               $scope.taskStore.tags.push({
