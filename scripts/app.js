@@ -57,7 +57,94 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     return hours + ':' + minutes + ':' + seconds;
   };
 
-  var temp = localStorage.getItem('taskStore'); // read taskStore from localStorage
+  if (chrome && chrome.app && chrome.app.runtime) { // if we are in a chrome app, use chrome.storage.local
+    console.log('reading from chrome.storage.local!');
+    chrome.storage.local.get('taskStore', function(getObj) {
+      var obj = getObj.taskStore;
+      console.log(obj);
+      if(obj.version) { // if this is a valid taskStore
+        if (obj.version !== $scope.version) { // saved taskStore from an earlier version
+          console.log(obj);
+          console.log('Warning! Saved data from an earlier version!');
+          console.log('Current app version is: ' + $scope.version);
+          console.log('Saved data version is: ' + obj.version);
+    //      throw new Error("Something went badly wrong!");   // only throw error if saved data API broken
+        }
+        // if saved data from same version, process
+        obj.activeTasks.forEach(function(x) {
+          var temp = new Task(x); // temp created to check if Task() returns error object
+          if(temp.error !== true) $scope.taskStore.activeTasks.push(temp); // don't push if Task() returns error object
+        });
+        obj.toDoTasks.forEach(function(x) {
+          var temp = new Task(x); // temp created to check if Task() returns error object
+          if(temp.error !== true) $scope.taskStore.toDoTasks.push(temp); // don't push if Task() returns error object
+        });
+        if (obj.tags) { // if tags[] exists from memory, copy it into $scope.taskStore.tags[]
+          if (typeof obj.tags[0] === 'string') { // api <= 0.9a
+            obj.tags.forEach(function(tag){
+              $scope.taskStore.tags.push({
+                'tag' : tag,
+                'time' : null
+              });
+            });
+          }
+          else if (typeof obj.tags[0] === 'object') {
+            $scope.taskStore.tags = obj.tags.slice(0);
+          }
+        }
+
+      }
+    } );
+  }
+  else {  // if not in a chrome app, use localStorage
+    console.log('reading from localStorage');
+    var temp = localStorage.getItem('taskStore'); // read taskStore from localStorage
+    if(temp) { // load saved taskStore if it exists
+      var obj = JSON.parse(temp);
+
+      if (!obj.version) { // from version < 0.7, where taskStore was a literal array of Tasks
+        obj.forEach(function(x) {
+          var temp = new Task(x); // temp created to check if Task() returns error object
+          if(temp.error !== true) $scope.taskStore.activeTasks.push(temp); // don't push if Task() returns error object
+        });
+
+        console.log('Migrating taskStore from version <= 0.6');
+
+  //      throw new Error("Migrating taskStore from version 0.6");
+      }
+      else if (obj.version !== $scope.version) { // saved taskStore from an earlier version
+        console.log(obj);
+        console.log('Warning! Saved data from an earlier version!');
+        console.log('Current app version is: ' + $scope.version);
+        console.log('Saved data version is: ' + obj.version);
+  //      throw new Error("Something went badly wrong!");   // only throw error if saved data API broken
+      }
+      // if saved data from same version, process
+      obj.activeTasks.forEach(function(x) {
+        var temp = new Task(x); // temp created to check if Task() returns error object
+        if(temp.error !== true) $scope.taskStore.activeTasks.push(temp); // don't push if Task() returns error object
+      });
+      obj.toDoTasks.forEach(function(x) {
+        var temp = new Task(x); // temp created to check if Task() returns error object
+        if(temp.error !== true) $scope.taskStore.toDoTasks.push(temp); // don't push if Task() returns error object
+      });
+      if (obj.tags) { // if tags[] exists from memory, copy it into $scope.taskStore.tags[]
+        if (typeof obj.tags[0] === 'string') { // api <= 0.9a
+          obj.tags.forEach(function(tag){
+            $scope.taskStore.tags.push({
+              'tag' : tag,
+              'time' : null
+            });
+          });
+        }
+        else if (typeof obj.tags[0] === 'object') {
+          $scope.taskStore.tags = obj.tags.slice(0);
+        }
+      }
+    }
+
+  }
+/*
   if(temp) { // load saved taskStore if it exists
     var obj = JSON.parse(temp);
 
@@ -102,11 +189,19 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     }
   }
 //  console.log($scope.taskStore);
+*/
+  console.log($scope.taskStore);
   tagRefresh();  // refresh tag times
 
   $scope.updateStorage = function() {
-    console.log('local storage updated!');
-    localStorage.setItem('taskStore', JSON.stringify($scope.taskStore));
+    if (chrome && chrome.app && chrome.app.runtime) { // if we are in a chrome app, use chrome.storage.local
+      chrome.storage.local.set( { 'taskStore' : $scope.taskStore } );
+      console.log('chrome.storage.local updated!');
+    }
+    else {  // if not in a chrome app, use localStorage
+      localStorage.setItem('taskStore', JSON.stringify($scope.taskStore));
+      console.log('local storage updated!');
+    }
   };
 
   $scope.newTask = function(name, startNow) {
@@ -228,9 +323,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     };
 
     this.setLapsedTime = function() {
-      console.log(this);
       var temp = this.cumulativeTime + (this.initTime ? (new Date().getTime() - this.initTime.getTime()) : 0);
-      console.log(temp);
       this.lapsedTimeString = $scope.timeString(temp);
     }; this.setLapsedTime(); // and now immediately call this function to initialize lapsedTimeString
 

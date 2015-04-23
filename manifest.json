@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+  "name": "Scheduler",
+  "version": "0.10.1",
+  "icons": {
+  },
+  "permissions": [
+    "storage"
+  ],
+  "app": {
+    "background": {
+      "scripts": ["scripts/background.js"]
+    }
+  },
+  "minimum_chrome_version": "28"
+}
