@@ -1,4 +1,8 @@
-# Scheduler <small>Changelog</small>
+# Scheduler
+
+A web app that tracks time spent on specific tasks and organizes them with a tagging system. The app runs entirely in the user's browser; it has no server, and your private information is never transmitted over the internet. Task information is auto-saved to the browser's [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Storage/LocalStorage).
+
+## Changelog
 
 ### todo:
 * add: support for chrome app
