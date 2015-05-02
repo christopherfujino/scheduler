@@ -9,6 +9,7 @@ A web app that tracks time spent on specific tasks and organizes them with a tag
 
 ### finished:
 
+version 0.10.1
 * fixed: bug where tags wouldn't be removed if task was deleted with tags still attached.
 * added: tag times now instantly refresh if a task's elapsed time is adjusted
 
