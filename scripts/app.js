@@ -26,6 +26,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
   var tagRefreshHandler = null;
 
   function tagRefresh() {
+    console.log('Tags refreshed!');
     $timeout.cancel(tagRefreshHandler); // cancel any other scheduled refresh
     tagRefreshHandler = $timeout(tagRefresh, 60000);  // schedule another refresh
 
@@ -273,7 +274,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
         for(var i=0; i<$scope.taskStore.tags.length; i++) {
           if(tag === $scope.taskStore.tags[i].tag) {
             $scope.taskStore.tags.splice(i, 1);
-            console.log('tag ' + tag + ' deleted!');
+//            console.log('tag ' + tag + ' deleted!');
           }
         }
       }
@@ -330,6 +331,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
         this.cumulativeTime = 0;
       }
       this.setLapsedTime();
+      tagRefresh();
     };
 
     this.setLapsedTime = function() {
@@ -351,12 +353,16 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       }
     };
     this.remove = function(type, index) {
-      if(type === 'active') $scope.taskStore.activeTasks.splice(index,1);
-      else if(type === 'toDo') $scope.taskStore.toDoTasks.splice(index,1);
-      else {
+      if (type !== 'active' && type !== 'toDo') {
         throw new Error('unknown type "' + type + '" in Task.remove()');
+      } else {
+        var collection = (type === 'active') ? $scope.taskStore.activeTasks : $scope.taskStore.toDoTasks;
+        while(this.tags.length > 0) { // length of this.tags[] will change as tags are removed
+          $scope.removeTag(this.tags[0], this); // call $scope.removeTag() so that taskStore's tags will be cleaned
+        }
+        collection.splice(index, 1);
+        $scope.updateStorage();
       }
-      $scope.updateStorage();
     };
     this.addTag = function(tag) {
       var isRepeat = false;
