@@ -1,6 +1,6 @@
 'use strict';
 
-var isChromeApp = (function(){
+var isChromeApp = (function(){  // this object will be used to check if we're in a Chrome app or regular web app
   var theBool = chrome && chrome.app && chrome.app.runtime;
 
   return {
@@ -35,7 +35,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
 
       // for queryTag, sum up all cumulativeTime of tasks with this tag
       var ms = 0,
-        active = $scope.taskStore.activeTasks;
+        active = $scope.taskStore.activeTasks; // a simple reference for brevity
       for(var i=0; i<active.length; i++) { // iterate through all active tasks
         for(var j=0; j<active[i].tags.length; j++) { // iterate through all tags of each task
           if(active[i].tags[j] === query.tag) {
@@ -62,7 +62,8 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     if (minutes < 10) minutes = '0' + minutes;
     x = (x - minutes)/60;
 
-    var hours = x % 24;
+//    var hours = x % 24;
+    var hours = x;  // since no days, don't do a modulo
     if(hours < 10) hours = '0' + hours;
 
     return hours + ':' + minutes + ':' + seconds;
@@ -89,6 +90,8 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
           var temp = new Task(x); // temp created to check if Task() returns error object
           if(temp.error !== true) $scope.taskStore.toDoTasks.push(temp); // don't push if Task() returns error object
         });
+        console.log('obj.tags == ');
+        console.log(obj.tags);
         if (typeof obj.tags === 'object') { // if tags[] exists from memory, copy it into $scope.taskStore.tags[]
           if (typeof obj.tags[0] === 'string') { // api <= 0.9a
             obj.tags.forEach(function(tag){
@@ -200,7 +203,6 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
   }
 //  console.log($scope.taskStore);
 */
-  console.log($scope);
   tagRefresh();  // refresh tag times
 
   $scope.updateStorage = function() {
