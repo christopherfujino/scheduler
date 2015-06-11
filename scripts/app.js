@@ -105,7 +105,6 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
             $scope.taskStore.tags = obj.tags.slice(0);
           }
         }
-
       }
     } );
   }
