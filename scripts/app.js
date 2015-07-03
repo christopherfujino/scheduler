@@ -26,7 +26,6 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
   var tagRefreshHandler = null;
 
   function tagRefresh() {
-    console.log('Tags refreshed!');
     $timeout.cancel(tagRefreshHandler); // cancel any other scheduled refresh
     tagRefreshHandler = $timeout(tagRefresh, 60000);  // schedule another refresh
 
@@ -46,6 +45,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       }
       query.time = $scope.timeString(ms);
     }
+    console.log('Tags refreshed!');
   }
 
   $scope.timeString = function(x) {
@@ -154,54 +154,8 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
         }
       }
     }
-
   }
-/*
-  if(temp) { // load saved taskStore if it exists
-    var obj = JSON.parse(temp);
 
-    if (!obj.version) { // from version < 0.7, where taskStore was a literal array of Tasks
-      obj.forEach(function(x) {
-        var temp = new Task(x); // temp created to check if Task() returns error object
-        if(temp.error !== true) $scope.taskStore.activeTasks.push(temp); // don't push if Task() returns error object
-      });
-
-      console.log('Migrating taskStore from version <= 0.6');
-
-//      throw new Error("Migrating taskStore from version 0.6");
-    }
-    else if (obj.version !== $scope.version) { // saved taskStore from an earlier version
-      console.log(obj);
-      console.log('Warning! Saved data from an earlier version!');
-      console.log('Current app version is: ' + $scope.version);
-      console.log('Saved data version is: ' + obj.version);
-//      throw new Error("Something went badly wrong!");   // only throw error if saved data API broken
-    }
-    // if saved data from same version, process
-    obj.activeTasks.forEach(function(x) {
-      var temp = new Task(x); // temp created to check if Task() returns error object
-      if(temp.error !== true) $scope.taskStore.activeTasks.push(temp); // don't push if Task() returns error object
-    });
-    obj.toDoTasks.forEach(function(x) {
-      var temp = new Task(x); // temp created to check if Task() returns error object
-      if(temp.error !== true) $scope.taskStore.toDoTasks.push(temp); // don't push if Task() returns error object
-    });
-    if (obj.tags) { // if tags[] exists from memory, copy it into $scope.taskStore.tags[]
-      if (typeof obj.tags[0] === 'string') { // api <= 0.9a
-        obj.tags.forEach(function(tag){
-          $scope.taskStore.tags.push({
-            'tag' : tag,
-            'time' : null
-          });
-        });
-      }
-      else if (typeof obj.tags[0] === 'object') {
-        $scope.taskStore.tags = obj.tags.slice(0);
-      }
-    }
-  }
-//  console.log($scope.taskStore);
-*/
   tagRefresh();  // refresh tag times
 
   $scope.updateStorage = function() {
@@ -240,18 +194,19 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
         tagRefresh();
       }
       $scope.updateStorage();
-    };
+    }
   };
 
   $scope.removeTag = function(tag, task) {
+    var i, j;
     if(task.removeTag(tag)){
       var unique = true, // assume this tag was unique, unless another is found
-        task = {},
+//        task = {},
         loopDone = false; // should we break the outer loop?
       // check if tags should be removed, implement
-      for(var i=0; !loopDone && i<$scope.taskStore.activeTasks.length; i++) {
+      for(i=0; !loopDone && i<$scope.taskStore.activeTasks.length; i++) {
         task = $scope.taskStore.activeTasks[i];
-        for(var j=0; j<task.tags.length; j++) {
+        for(j=0; j<task.tags.length; j++) {
           if (task.tags[j] === tag) {
             unique = false;
             loopDone = true; // done looping, tag not unique
@@ -260,9 +215,9 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
         }
       }
 
-      for(var i=0; !loopDone && i<$scope.taskStore.toDoTasks.length; i++) {
+      for(i=0; !loopDone && i<$scope.taskStore.toDoTasks.length; i++) {
         task = $scope.taskStore.toDoTasks[i];
-        for(var j=0; j<task.tags.length; j++) {
+        for(j=0; j<task.tags.length; j++) {
           if (task.tags[j] === tag) {
             unique = false;
             loopDone = true; // done looping, tag not unique
@@ -272,7 +227,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       }
       console.log('unique = ' + unique);
       if (unique) { // tag was unique, remove it from $scope.taskStore.tags[]
-        for(var i=0; i<$scope.taskStore.tags.length; i++) {
+        for(i=0; i<$scope.taskStore.tags.length; i++) {
           if(tag === $scope.taskStore.tags[i].tag) {
             $scope.taskStore.tags.splice(i, 1);
 //            console.log('tag ' + tag + ' deleted!');
@@ -282,7 +237,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
 //      else { console.log('not so unique.'); }
       $scope.updateStorage();
     }
-  }
+  };
 
   $scope.startToDoTask = function(index) {
     var activatedTask = $scope.taskStore.toDoTasks.splice(index, 1)[0];
@@ -314,7 +269,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       this.tags = arg.tags.slice(0);
     }
     this.nameBool = false;  // don't start in name edit mode
-    this.toggleName = function() { if (this.nameBool) this.nameBool = false; else this.nameBool = true; }
+    this.toggleName = function() { if (this.nameBool) this.nameBool = false; else this.nameBool = true; };
 
     function increment(task) {
       task.timeoutHandler = $timeout(increment, 1000, true, task);  // immediately restart timer
@@ -395,6 +350,6 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       this.initTime = now;
       $scope.updateStorage();
     };
-  };
+  }
 
 }]);
