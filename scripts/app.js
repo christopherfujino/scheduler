@@ -1,6 +1,5 @@
-'use strict';
-
 var isChromeApp = (function(){  // this object will be used to check if we're in a Chrome app or regular web app
+  'use strict';
   var theBool = chrome && chrome.app && chrome.app.runtime;
 
   return {
@@ -13,6 +12,8 @@ var isChromeApp = (function(){  // this object will be used to check if we're in
 var app = angular.module('scheduler',[]); // requires angularJS version >= 1.4
 
 app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
+  'use strict';
+
   $scope.version = '0.10.1';
   $scope.nameBool = false; // name is clicked?
 
@@ -25,7 +26,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
 
   var tagRefreshHandler = null;
 
-  function tagRefresh() {
+  $scope.tagRefresh = function() {
     $timeout.cancel(tagRefreshHandler); // cancel any other scheduled refresh
     tagRefreshHandler = $timeout(tagRefresh, 60000);  // schedule another refresh
 
@@ -46,7 +47,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       query.time = $scope.timeString(ms);
     }
     console.log('Tags refreshed!');
-  }
+  };
 
   $scope.timeString = function(x) {
     /*
@@ -156,7 +157,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     }
   }
 
-  tagRefresh();  // refresh tag times
+  $scope.tagRefresh();  // refresh tag times
 
   $scope.updateStorage = function() {
     if (isChromeApp.get()) { // if we are in a chrome app, use chrome.storage.local
@@ -191,7 +192,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       });
       if(!dupe) {
         $scope.taskStore.tags.push({'tag': tag, 'time': null}); // only add this tag if it's unique
-        tagRefresh();
+        $scope.tagRefresh();
       }
       $scope.updateStorage();
     }
