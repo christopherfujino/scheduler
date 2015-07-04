@@ -28,7 +28,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
 
   $scope.tagRefresh = function() {
     $timeout.cancel(tagRefreshHandler); // cancel any other scheduled refresh
-    tagRefreshHandler = $timeout(tagRefresh, 60000);  // schedule another refresh
+    tagRefreshHandler = $timeout($scope.tagRefresh, 60000);  // schedule another refresh
 
     for(var k=0; k<$scope.taskStore.tags.length; k++) { // iterate through each tag of taskStore.tags[]
       var query = $scope.taskStore.tags[k];
