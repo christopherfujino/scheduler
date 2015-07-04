@@ -9,6 +9,13 @@ A web app that tracks time spent on specific tasks and organizes them with a tag
 
 ### finished:
 
+version 0.11
+* fixed: bug where cumulative tag times wouldn't be refreshed when adding a tag that already exists
+* fixed: bug where tagRefresh() only showed time of last save
+* added: button to refresh cumulative tag times
+* changed: moved tagRefresh() method onto $scope
+* fixed: bug where after 24 hours, timestring would reset
+
 version 0.10.1
 * fixed: bug where tags wouldn't be removed if task was deleted with tags still attached.
 * added: tag times now instantly refresh if a task's elapsed time is adjusted
