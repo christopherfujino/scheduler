@@ -192,8 +192,8 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       });
       if(!dupe) {
         $scope.taskStore.tags.push({'tag': tag, 'time': null}); // only add this tag if it's unique
-        $scope.tagRefresh();
       }
+      $scope.tagRefresh();
       $scope.updateStorage();
     }
   };
