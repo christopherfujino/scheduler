@@ -288,7 +288,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
         this.cumulativeTime = 0;
       }
       this.setLapsedTime();
-      tagRefresh();
+      $scope.tagRefresh();
     };
 
     this.setLapsedTime = function() {
