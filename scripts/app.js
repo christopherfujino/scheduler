@@ -39,7 +39,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       for(var i=0; i<active.length; i++) { // iterate through all active tasks
         for(var j=0; j<active[i].tags.length; j++) { // iterate through all tags of each task
           if(active[i].tags[j] === query.tag) {
-            ms += active[i].cumulativeTime;
+            ms += active[i].cumulativeTime + (active[i].initTime ? (new Date().getTime() - active[i].initTime.getTime()) : 0); // if active[i].initTime exists, calculate time lapsed since;
             break;
           }
         }
@@ -276,7 +276,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
       task.timeoutHandler = $timeout(increment, 1000, true, task);  // immediately restart timer
       var now = new Date();
       task.setLapsedTime();
-      if((now - task.initTime) > 20000) { // save every 20 seconds
+      if((now - task.initTime) > 60000) { // save every 60 seconds
         task.save();
       }
     }
@@ -292,7 +292,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     };
 
     this.setLapsedTime = function() {
-      var temp = this.cumulativeTime + (this.initTime ? (new Date().getTime() - this.initTime.getTime()) : 0);
+      var temp = this.cumulativeTime + (this.initTime ? (new Date().getTime() - this.initTime.getTime()) : 0); // if this.initTime exists, calculate time lapsed since
       this.lapsedTimeString = $scope.timeString(temp);
     }; this.setLapsedTime(); // and now immediately call this function to initialize lapsedTimeString
 
