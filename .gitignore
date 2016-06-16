@@ -1,3 +1,4 @@
 bower_components/
 scripts/angular-1.4.0-beta.6/
 ignore/
+.DS_Store
