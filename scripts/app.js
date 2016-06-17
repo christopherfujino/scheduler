@@ -27,6 +27,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
   var tagRefreshHandler = null;
 
   $scope.tagRefresh = function() {
+    'use strict';
     $timeout.cancel(tagRefreshHandler); // cancel any other scheduled refresh
     tagRefreshHandler = $timeout($scope.tagRefresh, 60000);  // schedule another refresh
 
