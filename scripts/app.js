@@ -1,6 +1,6 @@
 var isChromeApp = (function(){  // this object will be used to check if we're in a Chrome app or regular web app
   'use strict';
-  var theBool = chrome && chrome.app && chrome.app.runtime;
+  var theBool = (chrome && chrome.app && chrome.app.runtime) ? true : false;
 
   return {
     get : function() {
