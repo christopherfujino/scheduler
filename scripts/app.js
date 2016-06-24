@@ -64,7 +64,6 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     if (minutes < 10) minutes = '0' + minutes;
     x = (x - minutes)/60;
 
-//    var hours = x % 24;
     var hours = x;  // since no days, don't do a modulo
     if(hours < 10) hours = '0' + hours;
 
