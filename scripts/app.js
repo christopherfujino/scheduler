@@ -1,6 +1,6 @@
 var isChromeApp = (function(){  // this object will be used to check if we're in a Chrome app or regular web app
   'use strict';
-  var theBool = chrome && chrome.app && chrome.app.runtime;
+  var theBool = (chrome && chrome.app && chrome.app.runtime) ? true : false;
 
   return {
     get : function() {
@@ -27,6 +27,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
   var tagRefreshHandler = null;
 
   $scope.tagRefresh = function() {
+    'use strict';
     $timeout.cancel(tagRefreshHandler); // cancel any other scheduled refresh
     tagRefreshHandler = $timeout($scope.tagRefresh, 60000);  // schedule another refresh
 
@@ -63,7 +64,6 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     if (minutes < 10) minutes = '0' + minutes;
     x = (x - minutes)/60;
 
-//    var hours = x % 24;
     var hours = x;  // since no days, don't do a modulo
     if(hours < 10) hours = '0' + hours;
 
