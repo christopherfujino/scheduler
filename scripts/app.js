@@ -282,8 +282,7 @@ app.controller('main', ['$scope', '$timeout', function($scope, $timeout) {
     }
 
     this.adjustTime = function(x) {
-      if(typeof x === 'string') x=parseInt(x);
-      this.cumulativeTime += x;
+      this.cumulativeTime += +x;
       if (this.cumulativeTime < 0) {
         this.cumulativeTime = 0;
       }
